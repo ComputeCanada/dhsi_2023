@@ -1,0 +1,19 @@
+---
+title: Using the command line
+description: |
+  A brief introduction to Bash and the Unix shell
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Monday June 5, 2023
+
+**Time:** \
+9am–noon
+
+**Instructor:** \
+Meghan Landry (ACENET)
+
+:::

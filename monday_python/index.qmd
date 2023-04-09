@@ -1,0 +1,19 @@
+---
+title: Python overview
+description: |
+  What is Python and why does it make sense for me to learn it?
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Monday June 5, 2023
+
+**Time:** \
+2pm–5pm
+
+**Instructor:** \
+Meghan Landry (ACENET)
+
+:::

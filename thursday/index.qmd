@@ -1,0 +1,16 @@
+---
+title: On your own!
+description: |
+  A day to work on your projects (of course, we are here to help)
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Thursday June 7, 2023
+
+**Time:** \
+9am–noon, 2pm–5pm
+
+:::

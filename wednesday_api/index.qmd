@@ -1,0 +1,19 @@
+---
+title: API querying
+description: |
+  Gathering internet data through APIs
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Wednesday June 7, 2023
+
+**Time:** \
+9am–noon
+
+**Instructors:** \
+Meghan Landry & Grace Fishbein (ACENET)
+
+:::

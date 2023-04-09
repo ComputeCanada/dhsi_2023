@@ -1,0 +1,57 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "!/tools/quarto/"
+
+website:
+  title: Coding Fundamentals for Humanists
+  favicon: /img/dhsi_logo.png
+  site-url: https://dhsi-2023.netlify.app/
+  repo-url: https://github.com/ComputeCanada/dhsi_2023
+  reader-mode: true
+  page-navigation: true
+  page-footer:
+    right:
+      - text: About
+        href: about.qmd
+  navbar:
+    background: light
+    logo: /img/dhsi_logo.png
+    logo-alt: "DHSI logo"
+    title: false
+    left:
+      - text: Command line
+        href: monday_bash/index.qmd
+      - text: Python overview
+        href: monday_python/index.qmd
+      - text: Python course
+        href: tuesday/index.qmd
+      - text: API querying
+        href: wednesday_api/index.qmd
+      - text: Web scraping
+        href: wednesday_scraping/index.qmd
+      - text: On your own
+        href: thursday/index.qmd
+      - text: Presentations
+        href: friday/index.qmd
+
+format:
+  html:
+    toc: true
+    toc-title: "<em>On this page:</em>"
+    toc-depth: 5
+    theme:
+      light: [cosmo, theme.scss]
+    code-overflow: wrap
+    css: styles.css
+    link-external-newwindow: true
+    reference-location: margin
+    fig-cap-location: margin
+
+execute:
+  freeze: auto
+  cache: true
+  error: true
+  echo: true

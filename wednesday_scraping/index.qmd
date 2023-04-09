@@ -1,0 +1,19 @@
+---
+title: Web scraping
+description: |
+  How to automate data extraction from the web with Python
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Wednesday June 7, 2023
+
+**Time:** \
+2pm–5pm
+
+**Instructor:** \
+Marie-Hélène Burle (Simon Fraser University)
+
+:::

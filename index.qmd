@@ -1,0 +1,146 @@
+---
+title: Coding Fundamentals for Humanists
+description: |
+  <br>Workshop for the [Digital Humanities Summer Institute](https://dhsi.org/) (DHSI) 2023
+toc: false
+title-block-banner: true
+anchor-sections: false
+---
+
+:::{layout="[[2.1, 5, 5], [2.1, 10], [2.1, 5, 5], [2.1, 10], [2.1, 10]]"}
+
+:::{.card-body}
+
+:::{.date}
+
+Monday<br>June 5, 2023
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[Using the command line](/monday_bash/index.qmd){.card-title .stretched-link}
+
+[A brief introduction to Bash and the Unix shell]{.text-muted}
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[Python overview](/monday_python/index.qmd){.card-title .stretched-link}
+
+[What is Python and why does it make sense for me to learn it?]{.text-muted}
+
+:::
+
+:::
+
+:::{.card-body}
+
+:::{.date}
+
+Tuesday<br>June 6, 2023
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[Python course](/tuesday/index.qmd){.card-title .stretched-link}
+
+[Basics of the language]{.text-muted}
+
+:::
+
+:::
+
+:::{.card-body}
+
+:::{.date}
+
+Wednesday<br>June 7, 2023
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[API querying](/wednesday_api/index.qmd){.card-title .stretched-link}
+
+[Gathering internet data through APIs]{.text-muted}
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[Web scraping](/wednesday_scraping/index.qmd){.card-title .stretched-link}
+
+[How to automate data extraction from the web with Python]{.text-muted}
+
+:::
+
+:::
+
+:::{.card-body}
+
+:::{.date}
+
+Thursday<br>June 8, 2023
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[On your own!](/thursday/index.qmd){.card-title .stretched-link}
+
+[A day to work on your projects (of course, we are here to help)]{.text-muted}
+
+:::
+
+:::
+
+:::{.card-body}
+
+:::{.date}
+
+Friday<br>June 9, 2023
+
+:::
+
+:::
+
+:::{.card .mb-3}
+
+:::{.card-body}
+
+[Project presentations](/friday/index.qmd){.card-title .stretched-link}
+
+[Totally stress-free and casual presentations of your projects and what you learnt]{.text-muted}
+
+:::
+
+:::
+
+:::

@@ -1,0 +1,16 @@
+---
+title: Project presentations
+description: |
+  Totally stress-free and casual presentations of your projects and what you learnt
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Friday June 9, 2023
+
+**Time:** \
+9am–noon, 2pm–5pm
+
+:::

@@ -1,0 +1,19 @@
+---
+title: Python course
+description: |
+  Basics of the language
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Tuesday June 6, 2023
+
+**Time:** \
+9am–noon, 2pm–5pm
+
+**Instructors:** \
+Grace Fishbein (ACENET) & Marie-Hélène Burle (Simon Fraser University)
+
+:::
