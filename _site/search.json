@@ -25,7 +25,7 @@
     "href": "index.html",
     "title": "Coding Fundamentals for Humanists",
     "section": "",
-    "text": "MondayJune 5, 2023\n\n\n\n\nUsing the command line\nA brief introduction to Bash and the Unix shell\n\n\n\n\nPython overview\nWhat is Python and why does it make sense for me to learn it?\n\n\n\n\n\n\nTuesdayJune 6, 2023\n\n\n\n\nPython course\nBasics of the language\n\n\n\n\n\n\nWednesdayJune 7, 2023\n\n\n\n\nAPI querying\nGathering internet data through APIs\n\n\n\n\nWeb scraping\nHow to automate data extraction from the web with Python\n\n\n\n\n\n\nThursdayJune 8, 2023\n\n\n\n\nOn your own!\nA day to work on your projects (of course, we are here to help)\n\n\n\n\n\n\nFridayJune 9, 2023\n\n\n\n\nProject presentations\nTotally stress-free and casual presentations of your projects and what you learnt"
+    "text": "MondayJune 5, 2023\n\n\n\n\nUsing the command line\nA brief introduction to Bash and the Unix shell\n\n\n\n\nPython overview\nWhat is Python and why does it make sense for me to learn it?\n\n\n\n\n\n\nTuesdayJune 6, 2023\n\n\n\n\nPython course\nBasics of the language\n\n\n\n\n\n\nWednesdayJune 7, 2023\n\n\n\n\nWeb scraping\nHow to automate data extraction from the web with Python\n\n\n\n\nAPI querying\nGathering internet data through APIs\n\n\n\n\n\n\nThursdayJune 8, 2023\n\n\n\n\nOn your own!\nA day to work on your projects (of course, we are here to help)\n\n\n\n\n\n\nFridayJune 9, 2023\n\n\n\n\nProject presentations\nTotally stress-free and casual presentations of your projects and what you learnt"
   },
   {
     "objectID": "monday_bash/index.html",
@@ -60,14 +60,14 @@
     "href": "wednesday_api/index.html",
     "title": "API querying",
     "section": "",
-    "text": "Date:\nWednesday June 7, 2023\nTime:\n9am–noon\nInstructors:\nMeghan Landry & Grace Fishbein (ACENET)"
+    "text": "Date:\nWednesday June 7, 2023\nTime:\n1pm–4pm\nInstructors:\nMeghan Landry & Grace Fishbein (ACENET)"
   },
   {
     "objectID": "wednesday_scraping/index.html",
     "href": "wednesday_scraping/index.html",
     "title": "Web scraping",
     "section": "",
-    "text": "Date:\nWednesday June 7, 2023\nTime:\n1pm–4pm\nInstructor:\nMarie-Hélène Burle (Simon Fraser University)"
+    "text": "Date:\nWednesday June 7, 2023\nTime:\n9am–noon\nInstructor:\nMarie-Hélène Burle (Simon Fraser University)"
   },
   {
     "objectID": "wednesday_scraping/index.html#html-and-css",

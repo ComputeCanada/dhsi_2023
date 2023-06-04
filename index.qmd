@@ -79,9 +79,9 @@ Wednesday<br>June 7, 2023
 
 :::{.card-body}
 
-[API querying](/wednesday_api/index.qmd){.card-title .stretched-link}
+[Web scraping](/wednesday_scraping/index.qmd){.card-title .stretched-link}
 
-[Gathering internet data through APIs]{.text-muted}
+[How to automate data extraction from the web with Python]{.text-muted}
 
 :::
 
@@ -91,9 +91,9 @@ Wednesday<br>June 7, 2023
 
 :::{.card-body}
 
-[Web scraping](/wednesday_scraping/index.qmd){.card-title .stretched-link}
+[API querying](/wednesday_api/index.qmd){.card-title .stretched-link}
 
-[How to automate data extraction from the web with Python]{.text-muted}
+[Gathering internet data through APIs]{.text-muted}
 
 :::
 
