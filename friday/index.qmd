@@ -11,6 +11,6 @@ title-block-banner: true
 Friday June 9, 2023
 
 **Time:** \
-9am–noon, 2pm–5pm
+9am–10:15am
 
 :::

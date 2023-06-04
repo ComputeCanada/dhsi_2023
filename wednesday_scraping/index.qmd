@@ -11,9 +11,338 @@ title-block-banner: true
 Wednesday June 7, 2023
 
 **Time:** \
-2pm–5pm
+1pm–4pm
 
 **Instructor:** \
 Marie-Hélène Burle (Simon Fraser University)
 
 :::
+
+<br>
+
+:::{.date}
+
+The internet is a trove of information. A lot of it is publicly available and thus suitable for use in research.
+
+Extracting that information and putting it in an organized format for analysis can however, be extremely tedious. Web scraping tools allow to automate parts of that process and Python is a popular language for the task.
+
+In this workshop, I will guide you through a simple example using the package [Beautiful Soup](https://beautiful-soup-4.readthedocs.io/en/latest/).
+
+:::
+
+<br>
+
+:::{.callout-accordion collapse="true"}
+
+## ***Running Python***
+
+For this workshop, we will use a temporary JupyterHub.
+
+To access it, go to the website given to you during the workshop and sign in using the username and password you will be given (you can ignore the OTP entry).
+
+:::{.note}
+
+Our JupyterHub already has the packages that we will be using installed. To run the code on your computer, in addition to Python (and—if you want to use a notebook—JupyterLab), you would have to install these packages.
+
+:::
+
+:::
+
+<br>
+
+## HTML and CSS
+
+[HyperText Markup Language](https://en.wikipedia.org/wiki/HTML) (HTML) is the standard markup language for websites: it encodes the information related to the formatting and structure of webpages. Additionally, some of the customization can be stored in [Cascading Style Sheets](https://en.wikipedia.org/wiki/CSS) (CSS) files.
+
+HTML uses tags of the form:
+
+```{.html}
+<some_tag>Your content</some_tag>
+```
+
+Some tags have attributes:
+
+```{.html}
+<some_tag attribute_name="attribute value">Your content</some_tag>
+```
+
+:::{.example}
+
+Examples:
+
+:::
+
+Site structure:
+
+- `<h2>This is a heading of level 2</h2>`
+- `<p>This is a paragraph</p>`
+
+Formatting:
+
+- `<b>This is bold</b>`
+- `<a href="https://some.url">This is the text for a link</a>`
+
+## Web scrapping
+
+Web scraping is a general term for a set of tools which allow for the extraction of data from the web automatically.
+
+While most of the data on the internet is publicly available, it is illegal to scrape some sites and you should always look into the policy of a site before attempting to scrape it. Some sites will also block you if you submit too many requests in a short amount of time, so remember to scrape responsibly.
+
+## Goal of this workshop
+
+We will use [a website](https://trace.tennessee.edu/utk_graddiss/index.html) from the [University of Tennessee](https://www.utk.edu/) containing a database of PhD theses from that university.
+
+Our goal is to scrape data from this site to produce a dataframe with the date, major, and principal investigator (PI) for each dissertation.
+
+:::{.note}
+
+We will only do this for the first page which contains the links to the 100 most recent theses. If you really wanted to gather all the data, you would have to do this for all pages.
+
+:::
+
+## Let's look at the sites
+
+First of all, let's have a close look at the websites we want to scrape to think carefully about what we want to do. Before starting to write code, it is always a good idea to think about what you are trying to achieve with your code.
+
+To create a dataframe with the data for all the dissertations on that first page, we need to do two things:
+
+- Step 1: from the [dissertations database first page](https://trace.tennessee.edu/utk_graddiss/index.html), we want to scrape the list of URLs for the dissertation pages.
+
+- Step 2: once we have the URLs, we want to scrape those pages too to get the date, major, and principal investigator (PI) for each dissertation.
+
+## Load packages
+
+Let's load the packages that will make scraping websites with Python easier:
+
+```{python}
+import requests                 # To download the html data from a site
+from bs4 import BeautifulSoup   # To parse the html data
+import pandas as pd             # To store our data in a DataFrame
+```
+
+## Read in HTML data from the main site
+
+As mentioned above, our site is the [database of PhD dissertations from the University of Tennessee](https://trace.tennessee.edu/utk_graddiss/index.html).
+
+Let's create a string with the URL:
+
+```{python}
+url = "https://trace.tennessee.edu/utk_graddiss/index.html"
+```
+
+First, we download the html data from that URL:
+
+```{python}
+html = requests.get(url)
+```
+
+## Explore the raw data
+
+Let's print the first 1000 characters of the raw data:
+
+```{python}
+print(html.text[:1000])
+```
+
+## Parse the data
+
+The package [Beautiful Soup](https://beautiful-soup-4.readthedocs.io/en/latest/) allows to transform (parse) the data in a way that will make extracting information easier.
+
+Let's create an object called `soup` with the parsed data:
+
+```{python}
+soup = BeautifulSoup(html.content, "html.parser")
+```
+
+`soup` is an object of a type specific to the Beautiful Soup package:
+
+```{python}
+type(soup)
+```
+
+## Test run
+
+It is a good idea to test things out on a single element before doing a massive batch scraping of a site, so let's test our method for the first dissertation.
+
+### Extract a test URL
+
+To start, we need to extract the first URL.
+
+#### Identify the relevant HTML markers
+
+The html code for this webpage contains the data we are interested in, but it is mixed in with a lot of HTML formatting information and data we aren't interested in. We need to extract it and turn it into a workable format.
+
+The first step is to find the CSS elements that contain the data we want. For this, you can use a web inspector or—even easier—the [SelectorGadget](https://selectorgadget.com/), a JavaScript bookmarklet built by [Andrew Cantino](https://andrewcantino.com/).
+
+To use this tool, a simple option is to go to the [SelectorGadget](https://selectorgadget.com/) website and drag the link of the bookmarklet to your bookmarks bar.
+
+Now, go to the [dissertations database first page](https://trace.tennessee.edu/utk_graddiss/index.html) and click on the bookmarklet in your bookmarks bar. You will see a floating box at the bottom of your screen and an orange rectangle appears around each element of the page over which you hover your mouse.
+
+If you hover above the first paragraph that contains one of the links to a dissertation page, you can see `div p` in the bottom left corner. And if you click on it, you learn that the CSS class for that element is `article-listing` (you can see `.article-listing` in the SelectorGadget box at the bottom of the page). This is the information we need to get started.
+
+#### Use the HTML markers
+
+
+
+```{python}
+soup.select('a[href="https://trace.tennessee.edu/utk_graddiss/7600"]')
+```
+
+
+
+
+
+Let's create an object `url_test` using this information. We extract from our object `soup` the first element for which `p` (a paragraph) is of the class `article-listing`:
+
+```{python}
+url_test = soup.find('p', class_='article-listing')
+```
+
+Let's see what we got:
+
+```{python}
+print(url_test.prettify())
+```
+
+:::{.note}
+
+The `prettify` method makes things a little more readable.
+
+:::
+
+This is quite ugly ... the URL is in there, so we successfully extracted the correct paragraph, but we need to do more cleaning.
+
+If we go back to the SelectorGadget and hover above a link in that first paragraph, we can see in the bottom left corner `p a`. This is because links are identified in HTML with the tag `a`.
+
+Let's extract `a` (the link) out of our paragraph:
+
+```{python}
+url_test = soup.find('p', class_='article-listing').find('a')
+```
+
+We now get:
+
+```{python}
+print(url_test.prettify())
+```
+
+This is better. We now only have the link. But links in HTML consist of the text displayed on screen and the URL linked to it. It is the URL we want. It is under the attribute `href` as you can see when you print `url_test`. To extract an attribute value, we use the method `get`:
+
+```{python}
+url_test = soup.find('p', class_='article-listing').find('a').get('href')
+```
+
+If we print this last version of `url_test`, we can see that we now have exactly what we wanted (the URL of the first dissertation information page) and nothing else:
+
+```{python}
+print(url_test)
+```
+
+### Read in HTML data for our test URL
+
+Now that we have the URL for the first dissertation information page, we want to extract the date, major, and principal investigator (PI) for that dissertation.
+
+```{python}
+type(url_test)
+```
+
+`url_test` is a string representing an URL. We know how to deal with this!
+
+The first thing to do—as we did earlier with the database site—is to download the html data for that page. Let's assign it to a new object that we will call `html_test`:
+
+```{python}
+html_test = requests.get(url_test)
+soup_test = BeautifulSoup(html_test.content, "html.parser")
+```
+
+### Get data for our test URL
+
+It is time to extract the publication date, major, and PI for our test URL.
+
+Let's start with the date. Thanks to the [SelectorGadget](https://selectorgadget.com/), following [the method we saw earlier](#identify-the-relevant-html-markers), we can see that we now need the paragraph of class `#publication_date`.
+
+While earlier we wanted the value of a tag attribute (i.e. part of the metadata), here we want the actual text (i.e. part of the actual content). To extract text from a snippet of HTML, we pass it to `html_text2()`.
+
+```{python}
+date_test = soup_test.find('div', attrs={'id' : 'alpha'})
+print(date_test)
+```
+
+
+
+### Full run
+
+#### Extract all URLs
+
+```{python}
+data = soup.find_all('p', class_='article-listing')
+print(data)
+```
+
+`data` is a ResultSet object created by Beautiful Soup. It is an [iterable](https://docs.python.org/3/glossary.html#term-iterable), meaning that it can be used in a loop.
+
+```{python}
+type(data)
+```
+
+```{python}
+urls = []
+
+for dissertation in data:
+    urls.append(dissertation.find('a').get('href'))
+```
+
+```{python}
+urls[:5]
+```
+
+```{python}
+type(urls)
+```
+
+For each element of `urls` (i.e. for each dissertation URL), we can now get our information.
+
+## Store results in a DataFrame
+
+Fist, we store the results in a list:
+
+```{.python}
+ls = []
+
+for country in data:
+    name = country.find('h3', class_="country-name")
+    cap = country.find('span', class_="country-capital")
+    pop = country.find('span', class_="country-population")
+    area = country.find('span', class_="country-area")
+    ls.append((name.text.strip(), cap.text.strip(), pop.text.strip(), area.text.strip()))
+```
+
+```{.python}
+type(ls)
+```
+
+```{.python}
+print(ls)
+```
+
+Then, we create a list with the column names for our DataFrame:
+
+```{.python}
+cols = ["Name", "Capital", "Population", "Area"]
+```
+
+Finally, we can create our DataFrame:
+
+```{.python}
+df = pd.DataFrame(ls, columns=cols)
+```
+
+```{.python}
+type(df)
+```
+
+```{.python}
+print(df)
+```
+
+## Functions recap
