@@ -16,39 +16,10 @@ Wednesday June 7, 2023
 **Instructor:** \
 Marie-Hélène Burle (Simon Fraser University)
 
-:::
-
-<br>
-
-:::{.date}
-
-The internet is a trove of information. A lot of it is publicly available and thus suitable for use in research.
-
-Extracting that information and putting it in an organized format for analysis can however, be extremely tedious. Web scraping tools allow to automate parts of that process and Python is a popular language for the task.
-
-In this workshop, I will guide you through a simple example using the package [Beautiful Soup](https://beautiful-soup-4.readthedocs.io/en/latest/).
+**Abstract:** \
+The internet is a trove of information. A lot of it is publicly available and thus suitable for use in research. Extracting that information and putting it in an organized format for analysis can however, be extremely tedious. Web scraping tools allow to automate parts of that process and Python is a popular language for the task. In this workshop, I will guide you through a simple example using the package [Beautiful Soup](https://beautiful-soup-4.readthedocs.io/en/latest/).
 
 :::
-
-<br>
-
-:::{.callout-accordion collapse="true"}
-
-## ***Running Python***
-
-For this workshop, we will use a temporary JupyterHub.
-
-To access it, go to the website given to you during the workshop and sign in using the username and password you will be given (you can ignore the OTP entry).
-
-:::{.note}
-
-Our JupyterHub already has the packages that we will be using installed. To run the code on your computer, in addition to Python (and—if you want to use a notebook—JupyterLab), you would have to install these packages.
-
-:::
-
-:::
-
-<br>
 
 ## HTML and CSS
 
