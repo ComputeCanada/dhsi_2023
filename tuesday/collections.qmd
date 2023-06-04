@@ -3,6 +3,12 @@ title: Collections
 author: Marie-Hélène Burle
 ---
 
+:::{.def}
+
+Values can be stored in collections. This section introduces tuples, dictionaries, sets, and arrays in Python.
+
+:::
+
 ## Lists
 
 Lists are declared in square brackets. **They are mutable, ordered (thus indexable), and possibly heterogeneous collections of values.**
