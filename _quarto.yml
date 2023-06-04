@@ -36,6 +36,24 @@ website:
         href: thursday/index.qmd
       - text: Presentations
         href: friday/index.qmd
+  sidebar:
+    - id: monday_bash
+    - id: tuesday
+      collapse-level: 2
+      contents:
+        - section:
+          contents:
+            - tuesday/index.qmd
+        - text: "<em>Python course</em>"
+          href: tuesday/index.qmd
+        - "---"
+        - <b><em>Afternoon course</em></b>
+        - text: Collections
+          href: tuesday/collections.qmd
+        - text: Control flow
+          href: tuesday/control_flow.qmd
+        - text: Functions
+          href: tuesday/functions.qmd
 
 format:
   html:
