@@ -28,10 +28,10 @@ website:
         href: monday_python/index.qmd
       - text: Python course
         href: tuesday/index.qmd
-      - text: API querying
-        href: wednesday_api/index.qmd
       - text: Web scraping
         href: wednesday_scraping/index.qmd
+      - text: API querying
+        href: wednesday_api/index.qmd
       - text: On your own
         href: thursday/index.qmd
       - text: Presentations
