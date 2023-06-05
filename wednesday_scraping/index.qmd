@@ -106,10 +106,10 @@ Let's create a string with the URL:
 url = "https://trace.tennessee.edu/utk_graddiss/index.html"
 ```
 
-First, we download the html data from that URL:
+First, we send a request to that URL:
 
 ```{python}
-html = requests.get(url)
+r = requests.get(url)
 ```
 
 ## Explore the raw data
@@ -117,7 +117,7 @@ html = requests.get(url)
 Let's print the first 1000 characters of the raw data:
 
 ```{python}
-print(html.text[:1000])
+print(r.text[:1000])
 ```
 
 ## Parse the data
@@ -127,7 +127,7 @@ The package [Beautiful Soup](https://beautiful-soup-4.readthedocs.io/en/latest/)
 Let's create an object called `soup` with the parsed data:
 
 ```{python}
-soup = BeautifulSoup(html.content, "html.parser")
+soup = BeautifulSoup(r.text, "html.parser")
 ```
 
 `soup` is an object of a type specific to the Beautiful Soup package:
@@ -224,11 +224,11 @@ type(url_test)
 
 `url_test` is a string representing an URL. We know how to deal with this!
 
-The first thing to do—as we did earlier with the database site—is to download the html data for that page. Let's assign it to a new object that we will call `html_test`:
+The first thing to do—as we did earlier with the database site—is to send a request to that page. Let's assign it to a new object that we will call `r_test`:
 
 ```{python}
-html_test = requests.get(url_test)
-soup_test = BeautifulSoup(html_test.content, "html.parser")
+r_test = requests.get(url_test)
+soup_test = BeautifulSoup(r_test.content, "html.parser")
 ```
 
 ### Get data for our test URL
