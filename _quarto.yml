@@ -47,7 +47,7 @@ website:
         - text: "<em>Python course</em>"
           href: tuesday/index.qmd
         - "---"
-        - <b><em>Afternoon course</em></b>
+        - <b><em>Afternoon session</em></b>
         - text: Collections
           href: tuesday/collections.qmd
         - text: Control flow
