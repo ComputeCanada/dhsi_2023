@@ -54,6 +54,8 @@ website:
           href: tuesday/control_flow.qmd
         - text: Functions
           href: tuesday/functions.qmd
+        - text: DataFrames with Pandas
+          href: tuesday/pandas.qmd
 
 format:
   html:
