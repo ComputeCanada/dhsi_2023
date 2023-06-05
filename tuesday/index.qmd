@@ -19,6 +19,6 @@ Marie-Hélène Burle (Simon Fraser University) & Grace Fishbein (ACENET)
 :::
 
 <br>
-[The material for the morning session is in our [Google Drive](https://drive.google.com/drive/folders/1h9fVy4EZkMQ0Y6C-70sN8-vjQyEKUYiI).]{.topinline}
+[The material for the morning session is in this [Google Drive](https://drive.google.com/drive/folders/1udiqSK5PYxZukxgKTX594R172DGEs60Q).]{.topinline}
 
 [[Start the afternoon session here ➤](collections.qmd)]{.topinline}
