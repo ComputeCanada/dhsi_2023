@@ -17,3 +17,10 @@ Monday June 5, 2023
 Meghan Landry (ACENET)
 
 :::
+
+:::{.info}
+
+- Live notes for this workshop are in this [etherpad](https://etherpad.wikimedia.org/p/Wy2XcLdS9pgIkg-_p_ZZ).
+- Lesson notes and data not available directly in this website can be found in this [Google Drive](https://drive.google.com/drive/folders/1h9fVy4EZkMQ0Y6C-70sN8-vjQyEKUYiI).
+
+:::
