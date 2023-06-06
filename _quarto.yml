@@ -33,7 +33,7 @@ website:
       - text: Presentations
         href: friday/index.qmd
   sidebar:
-    - id: monday_bash
+    - id: monday
     - id: tuesday
       collapse-level: 2
       contents:
