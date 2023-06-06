@@ -10,7 +10,6 @@ website:
   favicon: /img/dhsi_logo.png
   site-url: https://dhsi-2023.netlify.app/
   repo-url: https://github.com/ComputeCanada/dhsi_2023
-  reader-mode: true
   page-navigation: true
   page-footer:
     right:
