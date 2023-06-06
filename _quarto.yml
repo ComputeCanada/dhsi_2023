@@ -44,18 +44,20 @@ website:
         - section:
           contents:
             - tuesday/index.qmd
-        - text: "<em>Python course</em>"
+        - text: <em>Python course</em>
           href: tuesday/index.qmd
         - "---"
-        - <b><em>Afternoon session</em></b>
-        - text: Collections
+        - section: <b><em>Afternoon session</em></b>
           href: tuesday/collections.qmd
-        - text: Control flow
-          href: tuesday/control_flow.qmd
-        - text: Functions
-          href: tuesday/functions.qmd
-        - text: DataFrames with Pandas
-          href: tuesday/pandas.qmd
+          contents:
+            - text: Collections
+              href: tuesday/collections.qmd
+            - text: Control flow
+              href: tuesday/control_flow.qmd
+            - text: Functions
+              href: tuesday/functions.qmd
+            - text: DataFrames with Pandas
+              href: tuesday/pandas.qmd
 
 format:
   html:
