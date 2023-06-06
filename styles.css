@@ -396,6 +396,15 @@ a {
   border-radius: 5px;
 }
 
+.infogold {
+  font-family: 'Crimson Text', serif;
+  margin: 2rem 0;
+  padding: 1rem 2rem 0.5rem 2rem;
+  font-size: 1.05rem;
+  border: 1pt solid #996600;;
+  border-radius: 5px;
+}
+
 .note {
   color: #424a57;
   font-family: 'Maven Pro', sans-serif;
