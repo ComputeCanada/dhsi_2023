@@ -2,54 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dhsi-2023.netlify.app/about.html</loc>
-    <lastmod>2023-06-05T18:55:52.512Z</lastmod>
+    <lastmod>2023-06-06T13:25:54.445Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/friday/index.html</loc>
-    <lastmod>2023-06-05T18:55:52.742Z</lastmod>
+    <lastmod>2023-06-06T13:25:54.702Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/index.html</loc>
-    <lastmod>2023-06-06T05:24:53.261Z</lastmod>
+    <lastmod>2023-06-06T13:28:11.202Z</lastmod>
   </url>
   <url>
-    <loc>https://dhsi-2023.netlify.app/monday_bash/index.html</loc>
-    <lastmod>2023-06-05T18:55:53.272Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dhsi-2023.netlify.app/monday_python/index.html</loc>
-    <lastmod>2023-06-05T18:55:53.489Z</lastmod>
+    <loc>https://dhsi-2023.netlify.app/monday/index.html</loc>
+    <lastmod>2023-06-06T13:25:55.262Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/thursday/index.html</loc>
-    <lastmod>2023-06-05T18:55:53.705Z</lastmod>
+    <lastmod>2023-06-06T13:25:55.492Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/tuesday/collections.html</loc>
-    <lastmod>2023-06-06T04:52:06.278Z</lastmod>
+    <lastmod>2023-06-06T13:25:56.785Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/tuesday/control_flow.html</loc>
-    <lastmod>2023-06-06T04:21:18.098Z</lastmod>
+    <lastmod>2023-06-06T13:25:57.318Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/tuesday/functions.html</loc>
-    <lastmod>2023-06-06T04:22:38.931Z</lastmod>
+    <lastmod>2023-06-06T13:25:57.845Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/tuesday/index.html</loc>
-    <lastmod>2023-06-06T01:29:42.675Z</lastmod>
+    <lastmod>2023-06-06T13:25:58.082Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/tuesday/pandas.html</loc>
-    <lastmod>2023-06-06T02:24:51.822Z</lastmod>
+    <lastmod>2023-06-06T13:26:00.335Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/wednesday_api/index.html</loc>
-    <lastmod>2023-06-05T18:55:58.012Z</lastmod>
+    <lastmod>2023-06-06T13:26:00.878Z</lastmod>
   </url>
   <url>
     <loc>https://dhsi-2023.netlify.app/wednesday_scraping/index.html</loc>
-    <lastmod>2023-06-05T18:55:58.615Z</lastmod>
+    <lastmod>2023-06-06T13:26:01.602Z</lastmod>
   </url>
 </urlset>

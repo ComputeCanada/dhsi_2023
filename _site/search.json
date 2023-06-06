@@ -18,35 +18,28 @@
     "href": "friday/index.html",
     "title": "Project presentations",
     "section": "",
-    "text": "Date:\nFriday June 9, 2023\nTime:\n9am–10:15am\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
+    "text": "Date:\nFriday June 9, 2023\nTime:\n9am–10:15am\n\n\n\nDon’t hesitate to use the etherpad for live comments."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Coding Fundamentals for Humanists",
     "section": "",
-    "text": "MondayJune 5, 2023\n\n\n\n\nUsing the command line\nA brief introduction to Bash and the Unix shell\n\n\n\n\nPython overview\nWhat is Python and why does it make sense for me to learn it?\n\n\n\n\n\n\nTuesdayJune 6, 2023\n\n\n\n\nPython course\nBasics of the language\n\n\n\n\n\n\nWednesdayJune 7, 2023\n\n\n\n\nWeb scraping\nHow to automate data extraction from the web with Python\n\n\n\n\nAPI querying\nGathering internet data through APIs\n\n\n\n\n\n\nThursdayJune 8, 2023\n\n\n\n\nOn your own!\nA day to work on your projects (of course, we are here to help)\n\n\n\n\n\n\nFridayJune 9, 2023\n\n\n\n\nProject presentations\nTotally stress-free and casual presentations of your projects and what you learnt\n\n\n\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
+    "text": "MondayJune 5, 2023\n\n\n\n\nUsing the command line\nA brief introduction to Bash and the Unix shell\n\n\n\n\n\n\nTuesdayJune 6, 2023\n\n\n\n\nPython course\nBasics of the language\n\n\n\n\n\n\nWednesdayJune 7, 2023\n\n\n\n\nWeb scraping\nHow to automate data extraction from the web with Python\n\n\n\n\nAPI querying\nGathering internet data through APIs\n\n\n\n\n\n\nThursdayJune 8, 2023\n\n\n\n\nOn your own!\nA day to work on your projects (of course, we are here to help)\n\n\n\n\n\n\nFridayJune 9, 2023\n\n\n\n\nProject presentations\nTotally stress-free and casual presentations of your projects and what you learnt\n\n\n\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
   },
   {
-    "objectID": "monday_bash/index.html",
-    "href": "monday_bash/index.html",
+    "objectID": "monday/index.html",
+    "href": "monday/index.html",
     "title": "Using the command line",
     "section": "",
-    "text": "Date:\nMonday June 5, 2023\nTime:\n10:30am–noon\nInstructor:\nMeghan Landry (ACENET)\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
-  },
-  {
-    "objectID": "monday_python/index.html",
-    "href": "monday_python/index.html",
-    "title": "Python overview",
-    "section": "",
-    "text": "Date:\nMonday June 5, 2023\nTime:\n1pm–2:30pm\nInstructor:\nMeghan Landry (ACENET)\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
+    "text": "Date:\nMonday June 5, 2023\nTime:\n10:30am–noon, 1pm–2:30pm\nInstructor:\nMeghan Landry (ACENET)\n\n\n\nMaterial:\n\nEtherpad.\nGoogle Drive folder for this session."
   },
   {
     "objectID": "thursday/index.html",
     "href": "thursday/index.html",
     "title": "On your own!",
     "section": "",
-    "text": "Date:\nThursday June 7, 2023\nTime:\n9am–noon, 1pm–4pm\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
+    "text": "Date:\nThursday June 7, 2023\nTime:\n9am–noon, 1pm–4pm\n\n\n\nDon’t hesitate to use the etherpad for live comments."
   },
   {
     "objectID": "tuesday/collections.html",
@@ -154,11 +147,11 @@
     "text": "Function without argument\nLet’s start with the simple case in which our function does not accept any argument:\n\ndef hello():\n    print('Hello')\n\nThen we call it:\n\nhello()\n\nHello\n\n\nThis was great, but …\n\nhello('Marie')\n\nTypeError: hello() takes 0 positional arguments but 1 was given\n\n\n… it does not accept arguments."
   },
   {
-    "objectID": "tuesday/functions.html#function-which-accepts-an-argument",
-    "href": "tuesday/functions.html#function-which-accepts-an-argument",
+    "objectID": "tuesday/functions.html#function-with-one-argument",
+    "href": "tuesday/functions.html#function-with-one-argument",
     "title": "Writing functions",
-    "section": "Function which accepts an argument",
-    "text": "Function which accepts an argument\nLet’s step this up with a function which can accept an argument:\n\ndef greetings(name):\n    print('Hello ' + name)\n\nThis time, this works:\n\ngreetings('Marie')\n\nHello Marie\n\n\nHowever, this does not work anymore:\n\ngreetings()\n\nTypeError: greetings() missing 1 required positional argument: 'name'\n\n\n:("
+    "section": "Function with one argument",
+    "text": "Function with one argument\nLet’s step this up with a function which can accept an argument:\n\ndef greetings(name):\n    print('Hello ' + name)\n\nThis time, this works:\n\ngreetings('Marie')\n\nHello Marie\n\n\nHowever, this does not work anymore:\n\ngreetings()\n\nTypeError: greetings() missing 1 required positional argument: 'name'\n\n\n:("
   },
   {
     "objectID": "tuesday/functions.html#function-with-a-facultative-argument",
@@ -175,11 +168,11 @@
     "text": "Function with two arguments\nWe could create a function which takes two arguments:\n\ndef hey(name1, name2):\n    print('Hello ' + name1 + ', ' + name2)\n\nWhich solves our problem:\n\nhey('Marie', 'Paul')\n\nHello Marie, Paul\n\n\nBut it is terribly limiting:\n\n# This doesn't work\nhey()\n\nTypeError: hey() missing 2 required positional arguments: 'name1' and 'name2'\n\n\n\n# And neither does this\nhey('Marie')\n\nTypeError: hey() missing 1 required positional argument: 'name2'\n\n\n\n# Nor to mention this...\nhey('Marie', 'Paul', 'Alex')\n\nTypeError: hey() takes 2 positional arguments but 3 were given"
   },
   {
-    "objectID": "tuesday/functions.html#function-which-allows-to-pass-any-number-of-arguments",
-    "href": "tuesday/functions.html#function-which-allows-to-pass-any-number-of-arguments",
+    "objectID": "tuesday/functions.html#function-with-any-number-of-arguments",
+    "href": "tuesday/functions.html#function-with-any-number-of-arguments",
     "title": "Writing functions",
-    "section": "Function which allows to pass any number of arguments",
-    "text": "Function which allows to pass any number of arguments\nLet’s create a truly great function which handles all our cases:\n\ndef hi(name='you', *args):\n    result = ''\n    for i in args:\n        result += (', ' + i)\n    print('Hello ' + name + result)\n\nAnd let’s test it:\n\nhi()\nhi('Marie')\nhi('Marie', 'Paul')\nhi('Marie', 'Paul', 'Alex')\n\nHello you\nHello Marie\nHello Marie, Paul\nHello Marie, Paul, Alex\n\n\nEverything works!"
+    "section": "Function with any number of arguments",
+    "text": "Function with any number of arguments\nLet’s create a truly great function which handles all our cases:\n\ndef hi(name='you', *args):\n    result = ''\n    for i in args:\n        result += (', ' + i)\n    print('Hello ' + name + result)\n\nAnd let’s test it:\n\nhi()\nhi('Marie')\nhi('Marie', 'Paul')\nhi('Marie', 'Paul', 'Alex')\n\nHello you\nHello Marie\nHello Marie, Paul\nHello Marie, Paul, Alex\n\n\nEverything works!"
   },
   {
     "objectID": "tuesday/functions.html#documenting-functions",
@@ -242,7 +235,7 @@
     "href": "wednesday_api/index.html",
     "title": "API querying",
     "section": "",
-    "text": "Date:\nWednesday June 7, 2023\nTime:\n1pm–4pm\nInstructors:\nMeghan Landry & Grace Fishbein (ACENET)\n\n\n\nLive notes for this workshop are in this etherpad.\nLesson notes and data not available directly in this website can be found in this Google Drive."
+    "text": "Date:\nWednesday June 7, 2023\nTime:\n1pm–4pm\nInstructors:\nMeghan Landry & Grace Fishbein (ACENET)\n\n\n\nMaterial:\n\nEtherpad.\nGoogle Drive folder for this session."
   },
   {
     "objectID": "wednesday_scraping/index.html",
@@ -327,19 +320,5 @@
     "title": "Web scraping",
     "section": "Functions recap",
     "text": "Functions recap"
-  },
-  {
-    "objectID": "tuesday/functions.html#function-with-one-argument",
-    "href": "tuesday/functions.html#function-with-one-argument",
-    "title": "Writing functions",
-    "section": "Function with one argument",
-    "text": "Function with one argument\nLet’s step this up with a function which can accept an argument:\n\ndef greetings(name):\n    print('Hello ' + name)\n\nThis time, this works:\n\ngreetings('Marie')\n\nHello Marie\n\n\nHowever, this does not work anymore:\n\ngreetings()\n\nTypeError: greetings() missing 1 required positional argument: 'name'\n\n\n:("
-  },
-  {
-    "objectID": "tuesday/functions.html#function-with-any-number-of-arguments",
-    "href": "tuesday/functions.html#function-with-any-number-of-arguments",
-    "title": "Writing functions",
-    "section": "Function with any number of arguments",
-    "text": "Function with any number of arguments\nLet’s create a truly great function which handles all our cases:\n\ndef hi(name='you', *args):\n    result = ''\n    for i in args:\n        result += (', ' + i)\n    print('Hello ' + name + result)\n\nAnd let’s test it:\n\nhi()\nhi('Marie')\nhi('Marie', 'Paul')\nhi('Marie', 'Paul', 'Alex')\n\nHello you\nHello Marie\nHello Marie, Paul\nHello Marie, Paul, Alex\n\n\nEverything works!"
   }
 ]

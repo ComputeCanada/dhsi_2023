@@ -3,7 +3,6 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
-    - "!/tools/quarto/"
 
 website:
   title: Coding Fundamentals for Humanists
@@ -22,9 +21,7 @@ website:
     title: false
     left:
       - text: Command line
-        href: monday_bash/index.qmd
-      - text: Python overview
-        href: monday_python/index.qmd
+        href: monday/index.qmd
       - text: Python course
         href: tuesday/index.qmd
       - text: Web scraping

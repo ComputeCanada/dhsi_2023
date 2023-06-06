@@ -14,10 +14,10 @@ Thursday June 7, 2023
 9am–noon, 1pm–4pm
 
 :::
+<br>
 
-:::{.info}
+:::{.topinline}
 
-- Live notes for this workshop are in this [etherpad](https://etherpad.wikimedia.org/p/Wy2XcLdS9pgIkg-_p_ZZ).
-- Lesson notes and data not available directly in this website can be found in this [Google Drive](https://drive.google.com/drive/folders/1h9fVy4EZkMQ0Y6C-70sN8-vjQyEKUYiI).
+Don't hesitate to use the [etherpad](https://etherpad.wikimedia.org/p/Wy2XcLdS9pgIkg-_p_ZZ) for live comments.
 
 :::

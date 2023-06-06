@@ -1,0 +1,29 @@
+---
+title: Using the command line
+description: |
+  A brief introduction to Bash and the Unix shell
+title-block-banner: true
+---
+
+:::{.topdef}
+
+**Date:** \
+Monday June 5, 2023
+
+**Time:** \
+10:30am–noon, 1pm–2:30pm
+
+**Instructor:** \
+Meghan Landry (ACENET)
+
+:::
+<br>
+
+:::{.topinline}
+
+Material:
+
+- [Etherpad](https://etherpad.wikimedia.org/p/Wy2XcLdS9pgIkg-_p_ZZ).
+- [Google Drive folder](https://drive.google.com/drive/folders/1nh_HX355H11xcmHf9EWcaimhtGWzNLsG) for this session.
+
+:::

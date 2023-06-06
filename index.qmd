@@ -7,7 +7,7 @@ title-block-banner: true
 anchor-sections: false
 ---
 
-:::{layout="[[2.1, 5, 5], [2.1, 10], [2.1, 5, 5], [2.1, 10], [2.1, 10]]"}
+:::{layout="[[2.1, 10], [2.1, 10], [2.1, 5, 5], [2.1, 10], [2.1, 10]]"}
 
 :::{.card-body}
 
@@ -23,21 +23,9 @@ Monday<br>June 5, 2023
 
 :::{.card-body}
 
-[Using the command line](/monday_bash/index.qmd){.card-title .stretched-link}
+[Using the command line](/monday/index.qmd){.card-title .stretched-link}
 
 [A brief introduction to Bash and the Unix shell]{.text-muted}
-
-:::
-
-:::
-
-:::{.card .mb-3}
-
-:::{.card-body}
-
-[Python overview](/monday_python/index.qmd){.card-title .stretched-link}
-
-[What is Python and why does it make sense for me to learn it?]{.text-muted}
 
 :::
 
