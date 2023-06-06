@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tuesday/functions.html">Functions</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tuesday/collections.html"><b><em>Afternoon session</em></b></a></li><li class="breadcrumb-item"><a href="../tuesday/functions.html">Functions</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -181,33 +181,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text"><b><em>Afternoon session</em></b></span>
-  </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../tuesday/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><b><em>Afternoon session</em></b></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tuesday/collections.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Collections</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tuesday/control_flow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Control flow</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tuesday/functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Functions</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tuesday/pandas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DataFrames with Pandas</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -220,10 +228,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#syntax" id="toc-syntax" class="nav-link active" data-scroll-target="#syntax">Syntax</a></li>
   <li><a href="#function-without-argument" id="toc-function-without-argument" class="nav-link" data-scroll-target="#function-without-argument">Function without argument</a></li>
-  <li><a href="#function-which-accepts-an-argument" id="toc-function-which-accepts-an-argument" class="nav-link" data-scroll-target="#function-which-accepts-an-argument">Function which accepts an argument</a></li>
+  <li><a href="#function-with-one-argument" id="toc-function-with-one-argument" class="nav-link" data-scroll-target="#function-with-one-argument">Function with one argument</a></li>
   <li><a href="#function-with-a-facultative-argument" id="toc-function-with-a-facultative-argument" class="nav-link" data-scroll-target="#function-with-a-facultative-argument">Function with a facultative argument</a></li>
   <li><a href="#function-with-two-arguments" id="toc-function-with-two-arguments" class="nav-link" data-scroll-target="#function-with-two-arguments">Function with two arguments</a></li>
-  <li><a href="#function-which-allows-to-pass-any-number-of-arguments" id="toc-function-which-allows-to-pass-any-number-of-arguments" class="nav-link" data-scroll-target="#function-which-allows-to-pass-any-number-of-arguments">Function which allows to pass any number of arguments</a></li>
+  <li><a href="#function-with-any-number-of-arguments" id="toc-function-with-any-number-of-arguments" class="nav-link" data-scroll-target="#function-with-any-number-of-arguments">Function with any number of arguments</a></li>
   <li><a href="#documenting-functions" id="toc-documenting-functions" class="nav-link" data-scroll-target="#documenting-functions">Documenting functions</a></li>
   </ul>
 </nav>
@@ -289,8 +297,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>… it does not accept arguments.</p>
 </section>
-<section id="function-which-accepts-an-argument" class="level2">
-<h2 class="anchored" data-anchor-id="function-which-accepts-an-argument">Function which accepts an argument</h2>
+<section id="function-with-one-argument" class="level2">
+<h2 class="anchored" data-anchor-id="function-with-one-argument">Function with one argument</h2>
 <p>Let’s step this up with a function which can accept an argument:</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greetings(name):</span>
@@ -379,8 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="function-which-allows-to-pass-any-number-of-arguments" class="level2">
-<h2 class="anchored" data-anchor-id="function-which-allows-to-pass-any-number-of-arguments">Function which allows to pass any number of arguments</h2>
+<section id="function-with-any-number-of-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="function-with-any-number-of-arguments">Function with any number of arguments</h2>
 <p>Let’s create a truly great function which handles all our cases:</p>
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hi(name<span class="op">=</span><span class="st">'you'</span>, <span class="op">*</span>args):</span>
