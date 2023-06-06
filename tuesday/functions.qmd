@@ -47,7 +47,7 @@ hello('Marie')
 
 ... it does not accept arguments.
 
-## Function which accepts an argument
+## Function with one argument
 
 Let's step this up with a function which can accept an argument:
 
@@ -131,7 +131,7 @@ hey('Marie')
 hey('Marie', 'Paul', 'Alex')
 ```
 
-## Function which allows to pass any number of arguments
+## Function with any number of arguments
 
 Let's create a truly great function which handles all our cases:
 
