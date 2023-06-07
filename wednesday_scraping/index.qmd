@@ -68,7 +68,7 @@ While most of the data on the internet is publicly available, it is illegal to s
 
 We will use [a website](https://trace.tennessee.edu/utk_graddiss/index.html) from the [University of Tennessee](https://www.utk.edu/) containing a database of PhD theses from that university.
 
-Our goal is to scrape data from this site to produce a dataframe with the date, major, and principal investigator (PI) for each dissertation.
+Our goal is to scrape data from this site to produce a dataframe with the date, major, and advisor for each dissertation.
 
 :::{.note}
 
@@ -84,7 +84,7 @@ To create a dataframe with the data for all the dissertations on that first page
 
 - Step 1: from the [dissertations database first page](https://trace.tennessee.edu/utk_graddiss/index.html), we want to scrape the list of URLs for the dissertation pages.
 
-- Step 2: once we have the URLs, we want to scrape those pages too to get the date, major, and principal investigator (PI) for each dissertation.
+- Step 2: once we have the URLs, we want to scrape those pages too to get the date, major, and advisor for each dissertation.
 
 ## Load packages
 
@@ -263,7 +263,7 @@ print(url_test)
 
 ### Send request to test URL
 
-Now that we have the URL for the first dissertation information page, we want to extract the date, major, and principal investigator (PI) for that dissertation.
+Now that we have the URL for the first dissertation information page, we want to extract the date, major, and advisor for that dissertation.
 
 The first thing to do—as we did earlier with the database site—is to send a request to that page. Let's assign it to a new object that we will call `r_test`:
 
@@ -279,7 +279,7 @@ dissertpage_test = BeautifulSoup(r_test.content, "html.parser")
 
 ### Get data for our test URL
 
-It is time to extract the publication date, major, and PI for our test URL.
+It is time to extract the publication date, major, and advisor for our test URL.
 
 Let's start with the date. Thanks to the [SelectorGadget](https://selectorgadget.com/), following [the method we saw earlier](#identify-the-relevant-html-markers), we can see that we now need elements marked by `#publication_date p`.
 
@@ -315,7 +315,7 @@ Your turn:
 
 :::
 
-Get the major and PI for our test URL.
+Get the major and advisor for our test URL.
 
 :::
 
@@ -360,8 +360,8 @@ for url in urls:                                   # For each element of our lis
     dissertpage = BeautifulSoup(r.text, "html.parser")        # Parse the result
     date = dissertpage.select("#publication_date p")[0].text  # Get the date
     major = dissertpage.select("#department p")[0].text       # Get the major
-    pi = dissertpage.select("#advisor1 p")[0].text            # Get the PI
-    ls.append((date, major, pi))                              # Store the results in the list
+    advisor = dissertpage.select("#advisor1 p")[0].text            # Get the advisor
+    ls.append((date, major, advisor))                              # Store the results in the list
     time.sleep(0.1)                                           # Add a delay at each iteration
 ```
 
@@ -378,7 +378,7 @@ A DataFrame would be a lot more convenient than a list to hold our results.
 First, we create a list with the column names for our future DataFrame:
 
 ```{python}
-cols = ["Date", "Major", "PI"]
+cols = ["Date", "Major", "Advisor"]
 ```
 
 Then we create our DataFrame:
@@ -390,3 +390,25 @@ df = pd.DataFrame(ls, columns=cols)
 ```{python}
 df
 ```
+
+## Save the results to file
+
+As a final step, we will save our data to a CSV file:
+
+```{python}
+df.to_csv('dissertations_data.csv', index=False)
+```
+
+:::{.note}
+
+The default `index=True` writes the row numbers. We are not writing these indices in our file by changing the value of this argument to `False`.
+
+:::
+
+If you are using a Jupyter notebook or the [IPython](https://en.wikipedia.org/wiki/IPython) shell, you can type `!ls` to see that the file is there and `!cat dissertations_data.csv` to print its content.
+
+:::{.note}
+
+`!` is a magic command that allows to run Unix shell commands in a notebook or IPython shell.
+
+:::
