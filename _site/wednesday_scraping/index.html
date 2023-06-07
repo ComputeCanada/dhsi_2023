@@ -94,6 +94,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -182,25 +185,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#goal-of-this-workshop" id="toc-goal-of-this-workshop" class="nav-link" data-scroll-target="#goal-of-this-workshop">Goal of this workshop</a></li>
   <li><a href="#lets-look-at-the-sites" id="toc-lets-look-at-the-sites" class="nav-link" data-scroll-target="#lets-look-at-the-sites">Let’s look at the sites</a></li>
   <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
-  <li><a href="#read-in-html-data-from-the-main-site" id="toc-read-in-html-data-from-the-main-site" class="nav-link" data-scroll-target="#read-in-html-data-from-the-main-site">Read in HTML data from the main site</a></li>
+  <li><a href="#send-request-to-the-main-site" id="toc-send-request-to-the-main-site" class="nav-link" data-scroll-target="#send-request-to-the-main-site">Send request to the main site</a></li>
   <li><a href="#explore-the-raw-data" id="toc-explore-the-raw-data" class="nav-link" data-scroll-target="#explore-the-raw-data">Explore the raw data</a></li>
   <li><a href="#parse-the-data" id="toc-parse-the-data" class="nav-link" data-scroll-target="#parse-the-data">Parse the data</a></li>
   <li><a href="#test-run" id="toc-test-run" class="nav-link" data-scroll-target="#test-run">Test run</a>
   <ul>
-  <li><a href="#extract-a-test-url" id="toc-extract-a-test-url" class="nav-link" data-scroll-target="#extract-a-test-url">Extract a test URL</a>
-  <ul>
-  <li><a href="#identify-the-relevant-html-markers" id="toc-identify-the-relevant-html-markers" class="nav-link" data-scroll-target="#identify-the-relevant-html-markers">Identify the relevant HTML markers</a></li>
-  <li><a href="#use-the-html-markers" id="toc-use-the-html-markers" class="nav-link" data-scroll-target="#use-the-html-markers">Use the HTML markers</a></li>
-  </ul></li>
-  <li><a href="#read-in-html-data-for-our-test-url" id="toc-read-in-html-data-for-our-test-url" class="nav-link" data-scroll-target="#read-in-html-data-for-our-test-url">Read in HTML data for our test URL</a></li>
+  <li><a href="#identify-relevant-markers" id="toc-identify-relevant-markers" class="nav-link" data-scroll-target="#identify-relevant-markers">Identify relevant markers</a></li>
+  <li><a href="#extract-test-url" id="toc-extract-test-url" class="nav-link" data-scroll-target="#extract-test-url">Extract test URL</a></li>
+  <li><a href="#send-request-to-test-url" id="toc-send-request-to-test-url" class="nav-link" data-scroll-target="#send-request-to-test-url">Send request to test URL</a></li>
   <li><a href="#get-data-for-our-test-url" id="toc-get-data-for-our-test-url" class="nav-link" data-scroll-target="#get-data-for-our-test-url">Get data for our test URL</a></li>
+  </ul></li>
   <li><a href="#full-run" id="toc-full-run" class="nav-link" data-scroll-target="#full-run">Full run</a>
   <ul>
   <li><a href="#extract-all-urls" id="toc-extract-all-urls" class="nav-link" data-scroll-target="#extract-all-urls">Extract all URLs</a></li>
+  <li><a href="#extract-data-from-each-page" id="toc-extract-data-from-each-page" class="nav-link" data-scroll-target="#extract-data-from-each-page">Extract data from each page</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#store-results-in-a-dataframe" id="toc-store-results-in-a-dataframe" class="nav-link" data-scroll-target="#store-results-in-a-dataframe">Store results in a DataFrame</a></li>
-  <li><a href="#functions-recap" id="toc-functions-recap" class="nav-link" data-scroll-target="#functions-recap">Functions recap</a></li>
+  <li><a href="#store-results-in-dataframe" id="toc-store-results-in-dataframe" class="nav-link" data-scroll-target="#store-results-in-dataframe">Store results in DataFrame</a></li>
   </ul>
 </nav>
     </div>
@@ -271,244 +271,296 @@ Marie-Hélène Burle (Simon Fraser University)</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests                 <span class="co"># To download the html data from a site</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup   <span class="co"># To parse the html data</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd             <span class="co"># To store our data in a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time                     <span class="co"># To add a delay between each requests</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd             <span class="co"># To store our data in a DataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="read-in-html-data-from-the-main-site" class="level2">
-<h2 class="anchored" data-anchor-id="read-in-html-data-from-the-main-site">Read in HTML data from the main site</h2>
+<section id="send-request-to-the-main-site" class="level2">
+<h2 class="anchored" data-anchor-id="send-request-to-the-main-site">Send request to the main site</h2>
 <p>As mentioned above, our site is the <a href="https://trace.tennessee.edu/utk_graddiss/index.html">database of PhD dissertations from the University of Tennessee</a>.</p>
 <p>Let’s create a string with the URL:</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://trace.tennessee.edu/utk_graddiss/index.html"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we send a request to that URL:</p>
+<p>First, we send a request to that URL and save the response in a variable called <code>r</code>:</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Let’s see what our response looks like:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="141">
+<pre><code>&lt;Response [200]&gt;</code></pre>
+</div>
+</div>
+<p>If you look in the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">list of HTTP status codes</a>, you can see that a response with a code of <code>200</code> means that the request was successful.</p>
 </section>
 <section id="explore-the-raw-data" class="level2">
 <h2 class="anchored" data-anchor-id="explore-the-raw-data">Explore the raw data</h2>
-<p>Let’s print the first 1000 characters of the raw data:</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(r.text[:<span class="dv">1000</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To get the actual content of the response as unicode (text), we can use the <code>text</code> property of the response. This will give us the raw HTML markup from the webpage.</p>
+<p>Let’s print the first 200 characters:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(r.text[:<span class="dv">200</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
-&lt;head&gt;&lt;!-- inj yui3-seed: --&gt;&lt;script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/yui/3.6.0/yui/yui-min.js'&gt;&lt;/script&gt;&lt;script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'&gt;&lt;/script&gt;&lt;!-- Adobe Analytics --&gt;&lt;script type='text/javascript' src='https://assets.adobedtm.com/4a848ae9611a/d0e96722185b/launch-d525bb0064d8.min.js'&gt;&lt;/script&gt;&lt;!-- Cookies --&gt;&lt;link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css' /&gt;&lt;script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js'&gt;&lt;/script&gt;&lt;script type='text/javascript' src=/assets/nr_browser_production.js&gt;&lt;/script&gt;
-
-&lt;!-- def.1 --&gt;
-&lt;meta charset="utf-8"&gt;
-&lt;meta name="viewport" content="width=device-width"&gt;
-&lt;title&gt;
-Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
-&lt;/title&gt;
-
-
-&lt;!-- FILE meta-tags.inc --&gt;&lt;!-- FILE: /srv/sequoi</code></pre>
+&lt;head&gt;&lt;!-- inj yui3-seed: --&gt;&lt;script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/yui/3.6.0/yui/yui-min.js'&gt;&lt;/script&gt;&lt;script type='text/javascript' sr</code></pre>
 </div>
 </div>
 </section>
 <section id="parse-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="parse-the-data">Parse the data</h2>
-<p>The package <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a> allows to transform (parse) the data in a way that will make extracting information easier.</p>
-<p>Let’s create an object called <code>soup</code> with the parsed data:</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(r.text, <span class="st">"html.parser"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><code>soup</code> is an object of a type specific to the Beautiful Soup package:</p>
+<p>The package <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a> transforms (parses) such HTML data into a parse tree, which will make extracting information easier.</p>
+<p>Let’s create an object called <code>mainpage</code> with the parse tree:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(soup)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="94">
-<pre><code>bs4.BeautifulSoup</code></pre>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mainpage <span class="op">=</span> BeautifulSoup(r.text, <span class="st">"html.parser"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="note">
+<p><code>html.parser</code> is the name of the parser that we are using here. It is better to use a specific parser to get consistent results across environments.</p>
+</div>
+<p>We can print the beginning of the parsed result:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mainpage.prettify()[:<span class="dv">200</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+ &lt;head&gt;
+  &lt;!-- inj yui3-seed: --&gt;
+  &lt;script src="//cdnjs.cloudflare.com/ajax/libs/yui/3.6.0/yui/yui-min.js" type="text/javascript"&gt;
+  &lt;/script&gt;
+  &lt;script src="//ajax.g</code></pre>
+</div>
+</div>
+<div class="note">
+<p>The <code>prettify</code> method turns the BeautifulSoup object we created into a string (which is needed for slicing).</p>
+</div>
+<p>It doesn’t look any more clear to us, but it is now in a format the Beautiful Soup package can work with.</p>
+<p>For instance, we can get the HTML segment containing the title with three methods:</p>
+<ul>
+<li>using the title tag name:</li>
+</ul>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mainpage.title</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="145">
+<pre><code>&lt;title&gt;
+Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
+&lt;/title&gt;</code></pre>
+</div>
+</div>
+<ul>
+<li>using <code>find</code> to look for HTML markers (tags, attributes, etc.):</li>
+</ul>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mainpage.find(<span class="st">"title"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="146">
+<pre><code>&lt;title&gt;
+Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
+&lt;/title&gt;</code></pre>
+</div>
+</div>
+<ul>
+<li>using <code>select</code> which accepts CSS selectors:</li>
+</ul>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mainpage.select(<span class="st">"title"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="147">
+<pre><code>[&lt;title&gt;
+ Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
+ &lt;/title&gt;]</code></pre>
+</div>
+</div>
+<p><code>find</code> will only return the first element. <code>find_all</code> will return all elements. <code>select</code> will also return all elements. Which one you chose depends on what you need to extract. There often several ways to get you there.</p>
+<p>Here are other examples of data extraction:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mainpage.head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="148">
+<pre><code>&lt;head&gt;&lt;!-- inj yui3-seed: --&gt;&lt;script src="//cdnjs.cloudflare.com/ajax/libs/yui/3.6.0/yui/yui-min.js" type="text/javascript"&gt;&lt;/script&gt;&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"&gt;&lt;/script&gt;&lt;!-- Adobe Analytics --&gt;&lt;script src="https://assets.adobedtm.com/4a848ae9611a/d0e96722185b/launch-d525bb0064d8.min.js" type="text/javascript"&gt;&lt;/script&gt;&lt;!-- Cookies --&gt;&lt;link href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" rel="stylesheet" type="text/css"/&gt;&lt;script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js" type="text/javascript"&gt;&lt;/script&gt;&lt;script src="/assets/nr_browser_production.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;!-- def.1 --&gt;
+&lt;meta charset="utf-8"/&gt;
+&lt;meta content="width=device-width" name="viewport"/&gt;
+&lt;title&gt;
+Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
+&lt;/title&gt;
+&lt;!-- FILE meta-tags.inc --&gt;&lt;!-- FILE: /srv/sequoia/main/data/assets/site/meta-tags.inc --&gt;
+&lt;!-- FILE: meta-tags.inc (cont) --&gt;
+&lt;!-- sh.1 --&gt;
+&lt;link href="/ir-style.css" media="screen" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="/ir-custom.css" media="screen" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="ir-custom.css" media="screen" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="/ir-local.css" media="screen" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="ir-local.css" media="screen" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="/ir-print.css" media="print" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="/assets/floatbox/floatbox.css" rel="stylesheet" type="text/css"/&gt;
+&lt;link href="/recent.rss" rel="alternate" title="Site Feed" type="application/rss+xml"/&gt;
+&lt;link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/&gt;
+&lt;!--[if IE]&gt;
+&lt;link rel="stylesheet" href="/ir-ie.css" type="text/css" media="screen"&gt;
+&lt;![endif]--&gt;
+&lt;!-- JS --&gt;
+&lt;script src="/assets/jsUtilities.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/assets/footnoteLinks.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/assets/scripts/yui-init.pack.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/assets/scripts/bepress-init.pack.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="/assets/scripts/JumpListYUI.pack.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;!-- end sh.1 --&gt;
+&lt;script type="text/javascript"&gt;var pageData = {"page":{"environment":"prod","productName":"bpdg","language":"en","name":"ir_etd","businessUnit":"els:rp:st"},"visitor":{}};&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mainpage.a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="149">
+<pre><code>&lt;a data-scroll="" href="https://trace.tennessee.edu" title="Home"&gt;Home&lt;/a&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mainpage.find_all(<span class="st">"a"</span>)[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="150">
+<pre><code>[&lt;a data-scroll="" href="https://trace.tennessee.edu" title="Home"&gt;Home&lt;/a&gt;,
+ &lt;a data-scroll="" href="https://trace.tennessee.edu/do/search/advanced/" title="Search"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt; Search&lt;/a&gt;,
+ &lt;a data-scroll="" href="https://trace.tennessee.edu/communities.html" title="Browse"&gt;Browse Collections&lt;/a&gt;,
+ &lt;a data-scroll="" href="/cgi/myaccount.cgi?context=utk_graddiss" title="My Account"&gt;My Account&lt;/a&gt;,
+ &lt;a data-scroll="" href="https://trace.tennessee.edu/about.html" title="About"&gt;About&lt;/a&gt;]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mainpage.select(<span class="st">"a"</span>)[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="151">
+<pre><code>[&lt;a data-scroll="" href="https://trace.tennessee.edu" title="Home"&gt;Home&lt;/a&gt;,
+ &lt;a data-scroll="" href="https://trace.tennessee.edu/do/search/advanced/" title="Search"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt; Search&lt;/a&gt;,
+ &lt;a data-scroll="" href="https://trace.tennessee.edu/communities.html" title="Browse"&gt;Browse Collections&lt;/a&gt;,
+ &lt;a data-scroll="" href="/cgi/myaccount.cgi?context=utk_graddiss" title="My Account"&gt;My Account&lt;/a&gt;,
+ &lt;a data-scroll="" href="https://trace.tennessee.edu/about.html" title="About"&gt;About&lt;/a&gt;]</code></pre>
 </div>
 </div>
 </section>
 <section id="test-run" class="level2">
 <h2 class="anchored" data-anchor-id="test-run">Test run</h2>
-<p>It is a good idea to test things out on a single element before doing a massive batch scraping of a site, so let’s test our method for the first dissertation.</p>
-<section id="extract-a-test-url" class="level3">
-<h3 class="anchored" data-anchor-id="extract-a-test-url">Extract a test URL</h3>
-<p>To start, we need to extract the first URL.</p>
-<section id="identify-the-relevant-html-markers" class="level4">
-<h4 class="anchored" data-anchor-id="identify-the-relevant-html-markers">Identify the relevant HTML markers</h4>
-<p>The html code for this webpage contains the data we are interested in, but it is mixed in with a lot of HTML formatting information and data we aren’t interested in. We need to extract it and turn it into a workable format.</p>
-<p>The first step is to find the CSS elements that contain the data we want. For this, you can use a web inspector or—even easier—the <a href="https://selectorgadget.com/">SelectorGadget</a>, a JavaScript bookmarklet built by <a href="https://andrewcantino.com/">Andrew Cantino</a>.</p>
-<p>To use this tool, a simple option is to go to the <a href="https://selectorgadget.com/">SelectorGadget</a> website and drag the link of the bookmarklet to your bookmarks bar.</p>
-<p>Now, go to the <a href="https://trace.tennessee.edu/utk_graddiss/index.html">dissertations database first page</a> and click on the bookmarklet in your bookmarks bar. You will see a floating box at the bottom of your screen and an orange rectangle appears around each element of the page over which you hover your mouse.</p>
-<p>If you hover above the first paragraph that contains one of the links to a dissertation page, you can see <code>div p</code> in the bottom left corner. And if you click on it, you learn that the CSS class for that element is <code>article-listing</code> (you can see <code>.article-listing</code> in the SelectorGadget box at the bottom of the page). This is the information we need to get started.</p>
+<section id="identify-relevant-markers" class="level3">
+<h3 class="anchored" data-anchor-id="identify-relevant-markers">Identify relevant markers</h3>
+<p>The html code for this webpage contains the data we are interested in, but it is mixed in with a lot of HTML formatting and data we don’t care about. We need to extract the data relevant to us and turn it into a workable format.</p>
+<p>The first step is to find the HTML markers that contain our data. One option is to use a web inspector or—even easier—the <a href="https://selectorgadget.com/">SelectorGadget</a>, a JavaScript bookmarklet built by <a href="https://andrewcantino.com/">Andrew Cantino</a>.</p>
+<p>To use this tool, go to the <a href="https://selectorgadget.com/">SelectorGadget</a> website and drag the link of the bookmarklet to your bookmarks bar.</p>
+<p>Now, go to the <a href="https://trace.tennessee.edu/utk_graddiss/index.html">dissertations database first page</a> and click on the bookmarklet in your bookmarks bar. You will see a floating box at the bottom of your screen. As you move your mouse across the screen, an orange rectangle appears around each element over which you pass.</p>
+<p>Click on one of the dissertation links: now, there is an <code>a</code> appearing in the box at the bottom as well as the number of elements selected. The selected elements are highlighted in yellow. Those elements are links (in HTML, <code>a</code> tags define hyperlinks).</p>
+<p>As you can see, all the links we want are selected. However, there are many other links we don’t want that are also highlighted. In fact, <em>all</em> links in the document are selected. We need to remove the categories of links that we don’t want. To do this, hover above any of the links we don’t want. You will see a red rectangle around it. Click on it: now all similar links are gone. You might have to do this a few times until only the relevant links (i.e.&nbsp;those that lead to the dissertation information pages) remain highlighted.</p>
+<p>As there are 100 such links per page, the count of selected elements in the bottom floating box should be down to 100.</p>
+<p>In the main section of the floating box, you can now see: <code>.article-listing a</code>. This means that the data we want are under the HTML elements <code>.article-listing a</code> (the class <code>.article-listing</code> and the tag <code>a</code>).</p>
 </section>
-<section id="use-the-html-markers" class="level4">
-<h4 class="anchored" data-anchor-id="use-the-html-markers">Use the HTML markers</h4>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>soup.select(<span class="st">'a[href="https://trace.tennessee.edu/utk_graddiss/7600"]'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="95">
-<pre><code>[&lt;a href="https://trace.tennessee.edu/utk_graddiss/7600"&gt;The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods&lt;/a&gt;]</code></pre>
+<section id="extract-test-url" class="level3">
+<h3 class="anchored" data-anchor-id="extract-test-url">Extract test URL</h3>
+<p>It is a good idea to test things out on a single element before doing a massive batch scraping of a site, so let’s test our method for the first dissertation.</p>
+<p>To start, we need to extract the first URL. Here, we will use the CSS selectors (we can get there using <code>find</code> too). <code>mainpage.select(".article-listing a")</code> would give us all the results (100 links):</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(mainpage.select(<span class="st">".article-listing a"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="152">
+<pre><code>100</code></pre>
 </div>
 </div>
-<p>Let’s create an object <code>url_test</code> using this information. We extract from our object <code>soup</code> the first element for which <code>p</code> (a paragraph) is of the class <code>article-listing</code>:</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>url_test <span class="op">=</span> soup.find(<span class="st">'p'</span>, class_<span class="op">=</span><span class="st">'article-listing'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let’s see what we got:</p>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url_test.prettify())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;p class="article-listing"&gt;
- &lt;a href="https://trace.tennessee.edu/utk_graddiss/7600"&gt;
-  The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods
- &lt;/a&gt;
- , Breanna K. Vestal
-&lt;/p&gt;
-</code></pre>
+<p>To get the first one, we index it:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mainpage.select(<span class="st">".article-listing a"</span>)[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="153">
+<pre><code>&lt;a href="https://trace.tennessee.edu/utk_graddiss/7600"&gt;The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods&lt;/a&gt;</code></pre>
 </div>
 </div>
-<div class="note">
-<p>The <code>prettify</code> method makes things a little more readable.</p>
-</div>
-<p>This is quite ugly … the URL is in there, so we successfully extracted the correct paragraph, but we need to do more cleaning.</p>
-<p>If we go back to the SelectorGadget and hover above a link in that first paragraph, we can see in the bottom left corner <code>p a</code>. This is because links are identified in HTML with the tag <code>a</code>.</p>
-<p>Let’s extract <code>a</code> (the link) out of our paragraph:</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>url_test <span class="op">=</span> soup.find(<span class="st">'p'</span>, class_<span class="op">=</span><span class="st">'article-listing'</span>).find(<span class="st">'a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We now get:</p>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url_test.prettify())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;a href="https://trace.tennessee.edu/utk_graddiss/7600"&gt;
- The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods
-&lt;/a&gt;
-</code></pre>
+<p>The actual URL is contained in the <code>href</code> attribute. Attributes can be extracted with the <code>get</code> method:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>mainpage.select(<span class="st">".article-listing a"</span>)[<span class="dv">0</span>].get(<span class="st">"href"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="154">
+<pre><code>'https://trace.tennessee.edu/utk_graddiss/7600'</code></pre>
 </div>
 </div>
-<p>This is better. We now only have the link. But links in HTML consist of the text displayed on screen and the URL linked to it. It is the URL we want. It is under the attribute <code>href</code> as you can see when you print <code>url_test</code>. To extract an attribute value, we use the method <code>get</code>:</p>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>url_test <span class="op">=</span> soup.find(<span class="st">'p'</span>, class_<span class="op">=</span><span class="st">'article-listing'</span>).find(<span class="st">'a'</span>).get(<span class="st">'href'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We now have our URL as a string. We can double-check that it is indeed a string:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(mainpage.select(<span class="st">".article-listing a"</span>)[<span class="dv">0</span>].get(<span class="st">"href"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="155">
+<pre><code>str</code></pre>
 </div>
-<p>If we print this last version of <code>url_test</code>, we can see that we now have exactly what we wanted (the URL of the first dissertation information page) and nothing else:</p>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is exactly what we need to send a request to that site, so let’s create an object <code>url_test</code> with it:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>url_test <span class="op">=</span> mainpage.select(<span class="st">".article-listing a"</span>)[<span class="dv">0</span>].get(<span class="st">"href"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have our first thesis URL:</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>https://trace.tennessee.edu/utk_graddiss/7600</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="read-in-html-data-for-our-test-url" class="level3">
-<h3 class="anchored" data-anchor-id="read-in-html-data-for-our-test-url">Read in HTML data for our test URL</h3>
+<section id="send-request-to-test-url" class="level3">
+<h3 class="anchored" data-anchor-id="send-request-to-test-url">Send request to test URL</h3>
 <p>Now that we have the URL for the first dissertation information page, we want to extract the date, major, and principal investigator (PI) for that dissertation.</p>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(url_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="102">
-<pre><code>str</code></pre>
-</div>
-</div>
-<p><code>url_test</code> is a string representing an URL. We know how to deal with this!</p>
 <p>The first thing to do—as we did earlier with the database site—is to send a request to that page. Let’s assign it to a new object that we will call <code>r_test</code>:</p>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>r_test <span class="op">=</span> requests.get(url_test)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>soup_test <span class="op">=</span> BeautifulSoup(r_test.content, <span class="st">"html.parser"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>r_test <span class="op">=</span> requests.get(url_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can parse it with Beautiful Soup (as we did before). Let’s create a <code>dissertpage_test</code> object:</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dissertpage_test <span class="op">=</span> BeautifulSoup(r_test.content, <span class="st">"html.parser"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="get-data-for-our-test-url" class="level3">
 <h3 class="anchored" data-anchor-id="get-data-for-our-test-url">Get data for our test URL</h3>
 <p>It is time to extract the publication date, major, and PI for our test URL.</p>
-<p>Let’s start with the date. Thanks to the <a href="https://selectorgadget.com/">SelectorGadget</a>, following <a href="#identify-the-relevant-html-markers">the method we saw earlier</a>, we can see that we now need the paragraph of class <code>#publication_date</code>.</p>
-<p>While earlier we wanted the value of a tag attribute (i.e.&nbsp;part of the metadata), here we want the actual text (i.e.&nbsp;part of the actual content). To extract text from a snippet of HTML, we pass it to <code>html_text2()</code>.</p>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>date_test <span class="op">=</span> soup_test.find(<span class="st">'div'</span>, attrs<span class="op">=</span>{<span class="st">'id'</span> : <span class="st">'alpha'</span>})</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(date_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;div id="alpha"&gt;
-&lt;!-- FILE: /srv/sequoia/main/data/assets/site/ir_etd/article/article_info.inc (cont) --&gt;&lt;div class="element" id="title"&gt;
-&lt;h4&gt;Title&lt;/h4&gt;
-&lt;p&gt;&lt;a href="https://trace.tennessee.edu/cgi/viewcontent.cgi?article=9084&amp;amp;context=utk_graddiss"&gt;The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="authors"&gt;
-&lt;h4&gt;Author&lt;/h4&gt;
-&lt;p class="author"&gt;&lt;a href="https://trace.tennessee.edu/do/search/?q=author_lname%3A%22Vestal%22%20author_fname%3A%22Breanna%22&amp;amp;start=0&amp;amp;context=885231"&gt;&lt;strong&gt;Breanna K. Vestal&lt;/strong&gt;, &lt;em&gt;University of Tennessee, Knoxville&lt;/em&gt;&lt;/a&gt;&lt;a class="btn followable" data-follow-set="user:YWQwMTc1NjAxNzM3MmY5Zg== institution:ZGZlOTdjZGJhNTMyNGQwYw==" href="https://network.bepress.com/api/follow/subscribe?user=YWQwMTc1NjAxNzM3MmY5Zg%3D%3D&amp;amp;institution=ZGZlOTdjZGJhNTMyNGQwYw%3D%3D&amp;amp;format=html" rel="nofollow" title="Follow Breanna K. Vestal"&gt;Follow&lt;/a&gt;&lt;br/&gt;
-&lt;/p&gt;&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="author1_orcid"&gt;
-&lt;h4&gt;Orcid ID&lt;/h4&gt;
-&lt;p&gt;0000-0001-9635-7677&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="publication_date"&gt;
-&lt;h4&gt;Date of Award&lt;/h4&gt;
-&lt;p&gt;5-2023&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="document_type"&gt;
-&lt;h4&gt;Degree Type&lt;/h4&gt;
-&lt;p&gt;Dissertation&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="degree_name"&gt;
-&lt;h4&gt;Degree Name&lt;/h4&gt;
-&lt;p&gt;Doctor of Philosophy&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="department"&gt;
-&lt;h4&gt;Major&lt;/h4&gt;
-&lt;p&gt;Chemistry&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="advisor1"&gt;
-&lt;h4&gt;Major Professor&lt;/h4&gt;
-&lt;p&gt;Craig E. Barnes&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="advisor2"&gt;
-&lt;h4&gt;Committee Members&lt;/h4&gt;
-&lt;p&gt;David Jenkins, Bhavya Sharma, Jamie Coble&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="abstract"&gt;
-&lt;h4&gt;Abstract&lt;/h4&gt;
-&lt;p&gt;A novel protocol has been developed for the chemical removal of zirconium alloy (Zircaloy) cladding from spent nuclear fuel rods and subsequent isolation and purification of nuclear-grade zirconium chloride derived therefrom. This protocol is based on the chemistry developed from two new scientific findings.&lt;/p&gt;
-&lt;p&gt;First, two new oxidative chlorination reactions have been discovered for zirconium metal. In both solvents, zirconium can be quantitatively chlorinated at temperatures less than 150°C, with the operative equations seen below. In sulfur monochloride, the reaction is completed in 2 – 4 hours via surface etching, exhibiting 0&lt;sup&gt;th&lt;/sup&gt; order kinetic behavior. The elemental sulfur byproduct can be quantitatively rechlorinated to sulfur monochloride immediately following the Zircaloy chlorination so the only consumable material from the reaction is chlorine. In thionyl chloride, the reaction is completed in 7 – 40 hours with a variable induction period. The time-to-completion may be lowered by increasing the temperature of the reacting metal or by utilizing a reagent to clean the surface. Based on previous studies, sulfur monochloride has been shown to clean the surface of the metal during reaction. Therefore, a mixture of sulfur monochloride and thionyl chloride may also be utilized to chlorinate zirconium, with a time-to-completion between 2 – 4 hours. The active chlorinating agent remains thionyl chloride.&lt;/p&gt;
-&lt;p&gt;Second, a new method to purify zirconium chloride from the chlorination reactions was investigated. It has been reported that zirconium chloride forms an adduct with thionyl chloride. However, to our knowledge, the solubility of the zirconium chloride in thionyl chloride has not been reported. The solubility is both high and temperature dependent in comparison to other metal chlorides investigated. This allowed for the development of crystallization procedures to obtain high yields of purified zirconium chloride. In the context of the recycling protocol for the Zircaloy, the product may either be decontaminated to reclassify it as low-level waste or reused by the industry.&lt;/p&gt;
-&lt;p&gt;This protocol has been performed in the presence of depleted uranium oxide pellets. Fuel pellets do not affect zirconium chlorination, and the chlorination does not alter the fuel pellets.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;div class="element" id="recommended_citation"&gt;
-&lt;h4&gt;Recommended Citation&lt;/h4&gt;
-&lt;!-- FILE: /srv/sequoia/main/data/journals/trace.tennessee.edu/utk_graddiss/assets/ir_citation.inc --&gt;&lt;p&gt;Vestal, Breanna K., "The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods. " PhD diss., University of Tennessee, 2023.&lt;br/&gt;https://trace.tennessee.edu/utk_graddiss/7600&lt;/p&gt;&lt;!-- FILE: /srv/sequoia/main/data/assets/site/ir_etd/article/article_info.inc (cont) --&gt;&lt;/div&gt;
-&lt;div class="clear"&gt;&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+<p>Let’s start with the date. Thanks to the <a href="https://selectorgadget.com/">SelectorGadget</a>, following <a href="#identify-the-relevant-html-markers">the method we saw earlier</a>, we can see that we now need elements marked by <code>#publication_date p</code>.</p>
+<p>We can use <code>select</code> as we did earlier:</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dissertpage_test.select(<span class="st">"#publication_date p"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="160">
+<pre><code>[&lt;p&gt;5-2023&lt;/p&gt;]</code></pre>
 </div>
+</div>
+<p>Notice the square brackets around our result: this is import. It shows us that we have a ResultSet (a list of results specific to Beautiful Soup). This is because <code>select</code> returns all the results. Here, we have a single result, but the format is still list-like. Before we can go further, we need to index the value out of it:</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>dissertpage_test.select(<span class="st">"#publication_date p"</span>)[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="161">
+<pre><code>&lt;p&gt;5-2023&lt;/p&gt;</code></pre>
+</div>
+</div>
+<p>We can now get the text out of this paragraph with the <code>text</code> attribute:</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>dissertpage_test.select(<span class="st">"#publication_date p"</span>)[<span class="dv">0</span>].text</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="162">
+<pre><code>'5-2023'</code></pre>
+</div>
+</div>
+<p>We could save it in a variable <code>date_test</code>:</p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>date_test <span class="op">=</span> dissertpage_test.select(<span class="st">"#publication_date p"</span>)[<span class="dv">0</span>].text</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="exo">
+<div class="yourturn">
+<p>Your turn:</p>
+</div>
+<p>Get the major and PI for our test URL.</p>
 </div>
 </section>
-<section id="full-run" class="level3">
-<h3 class="anchored" data-anchor-id="full-run">Full run</h3>
-<section id="extract-all-urls" class="level4">
-<h4 class="anchored" data-anchor-id="extract-all-urls">Extract all URLs</h4>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> soup.find_all(<span class="st">'p'</span>, class_<span class="op">=</span><span class="st">'article-listing'</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[&lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7600"&gt;The Novel Chlorination of Zirconium Metal and Its Application to a Recycling Protocol for Zircaloy Cladding from Spent Nuclear Fuel Rods&lt;/a&gt;, Breanna K. Vestal&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7714"&gt;Tethered Axial Coordination as a Control Modality in Rhodium(II)-Catalyzed Carbene Transfer Reactions&lt;/a&gt;, Anthony Dean Abshire&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7592"&gt;Novel Mixed Integer Programming Approaches to Unit Commitment and Tool Switching Problems&lt;/a&gt;, Najmaddin Akhundov&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7146"&gt;IMPROVED AND SUSTAINABLE MANAGEMENT OF ECONOMICALLY IMPORTANT PLANT-PARASITIC NEMATODES OF FIELD CROPS AND FUNGAL DISEASES OF SOYBEAN AND HEMP IN TENNESSEE&lt;/a&gt;, Rufus J. Akinrinlola&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7086"&gt;Model Based Force Estimation and Stiffness Control for Continuum Robots&lt;/a&gt;, Vincent A. Aloi&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7603"&gt;Oscillation Analysis and its Mitigation Using Inverter-Based Resources in Large-Scale Power Grids&lt;/a&gt;, Khaled Alshuaibi&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7091"&gt;A STUDY OF THE EFFECT OF PHYSIOLOGICAL STRESSORS ON HYPOTHALAMIC REGULATION OF REPRODUCTION USING AN IN VITRO SYSTEM&lt;/a&gt;, Lisa L. Amelse&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7123"&gt;Troya Victa : Empire, Identity, and Apocalypse in the Frankish Chronicles of the Fourth Crusade&lt;/a&gt;, Jordan Amspacher&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7699"&gt;INTRA-SKELETAL VARIATION IN STABLE ISOTOPES THROUGH NON-DESTRUCTIVE APPROACHES: APPLICATIONS OF THE PATTERNS OF SKELETAL REMODELING TO BIOLOGICAL ANTHROPOLOGY&lt;/a&gt;, Armando Anzellini&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7687"&gt;Investigation of Fore-Aft Element Connectors for an ultra-efficient Slotted, Natural-Laminar-Flow Aircraft Wing&lt;/a&gt;, Corey M. Arndt&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7237"&gt;Elucidating mammalian cellular responses to the uptake of nanoparticles  (NPs), pathogens, and lipoproteins: similarities and differences&lt;/a&gt;, Monireh Asoudeh&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7651"&gt;ANALYSIS OF PHYSICOCHEMICAL PROPERTIES AND TERRESTRIAL DYNAMICS OF MECHANICALLY FORMED MICRO-NANO SCALED PARTICLES FROM AGRICULTURAL PLASTIC MULCHES&lt;/a&gt;, Anton Friedrich Astner&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7094"&gt;Bacterial Communities during Heifer Development and their Impact on the Uterine Environment&lt;/a&gt;, Taylor Brianne Ault Seay&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7257"&gt;Resituando El Cuerpo Femenino A Través De La Memoria Histórica Y La Ficción: Carlota De Bélgica Y Eva Perón En Las Novelas Noticias Del Imperio De Fernando Del Paso Y Santa Evita De Tomás Eloy Martínez&lt;/a&gt;, Krysheida Ayub - Unzon&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7158"&gt;Disrupting the Canon with Young Adult Remixes&lt;/a&gt;, Arianna Banack&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7416"&gt;Leader Type and Responses to State-Sponsored Terrorism&lt;/a&gt;, Arjun Banerjee&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7736"&gt;Content Externalism and Self-Knowledge&lt;/a&gt;, Donnie Gene Barnett Jr.&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7204"&gt;ONE SIZE DOES NOT FIT ALL: AN AUTOETHNOGRAPHIC ACCOUNT OF FAT REPRESENTATION IN YAL AS A CATALYST FOR FAT ACCEPTANCE&lt;/a&gt;, Laura Beal&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7139"&gt;Making Sense of Soil Microbiome Complexity for Plant and Ecosystem Function in a Changing World&lt;/a&gt;, Kendall K. Beals&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7108"&gt;Nodulin 26 like Intrinsic Proteins: Structurally Similar Membrane Channels with Diverse Functions in Plant Hypoxia Stress, Metalloid Nutrition &amp;amp; Toxicity&lt;/a&gt;, Zachary Beamer&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7224"&gt;“It's Like You're Trying to Get a Meeting with the Pope”: A Narrative Inquiry on Experiences of Social Work Field Staff Establishing Field Placements in Sport&lt;/a&gt;, Lauren Beasley&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7363"&gt;Investigating Person-Specific Profiles of Readiness-To-Exercise: Exploring Associations with Hypothetical Experiential Outcomes and Perceived Relevance&lt;/a&gt;, Cory Beaumont&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7105"&gt;Measurement of Neutrino-Induced Neutron Production in Lead&lt;/a&gt;, Brandon J. Becker&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7135"&gt;Three Essays on the Determinants of Business Activity and Entrepreneurship&lt;/a&gt;, Richard H. Beem Jr&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7236"&gt;Predators in the Petals: How crab spiders affect plants and their pollinators&lt;/a&gt;, Amanda D. Benoit&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7366"&gt;“Sometimes the People Giving the Care Get a Little Overlooked”: Athletic Trainers’ Personal Use of Psychosocial Strategies and Interactions with Mental Performance Consultants&lt;/a&gt;, Alexander Bianco&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7389"&gt;Implantable Medical Devices for Local Drug Delivery and Tissue Regeneration to Combat Chronic Bacterial Infection&lt;/a&gt;, Caroline J. Billings&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7630"&gt;The Lived Experience of Losing Employment After Diagnosis with Dementia: A Phenomenological Analysis&lt;/a&gt;, Susan K. Blaine&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7673"&gt;Principal in Name Only: A Mixed Methods Study of How Catholic School Governance Models Affect Leadership&lt;/a&gt;, Davis H. Bodie&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7160"&gt;Chiral Mesogen-Free Liquid Crystalline Polyethers with Sulfonylated Side Chains and Patchy Brush Nanoparticles&lt;/a&gt;, Caleb A. Bohannon&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7119"&gt;Accelerated Catalyst Diffusion in Chemically Amplified Resists&lt;/a&gt;, Christopher M. Bottoms&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7194"&gt;The Parasocial Relationships in Social Media Survey&lt;/a&gt;, Austin T. Boyd&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7153"&gt;Design and Development of the Urban Population Health Observatory to Improve Disease Surveillance and Response&lt;/a&gt;, Whitney Brakefield&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7122"&gt;Seeing with the Eyes of the Soul: Visionary Women, Meditative Lives of Christ, and Their Readers in Late-Medieval England&lt;/a&gt;, Caitlin J. BranumThrash&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7693"&gt;Expectancy Values and their Interaction with the edTPA&lt;/a&gt;, Stephanie L. Brennan&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7080"&gt;An Archaeological Study of Pit Cellars and Ethnic Identity in Tennessee&lt;/a&gt;, Daniel Whitaker Howard Brock&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7252"&gt;Essays in Experimental Economics and Applied Econometrics&lt;/a&gt;, Michael Jacob Brown&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7116"&gt;Modeling Basal Sprout Production in Vector-Borne Tree Disease&lt;/a&gt;, Kelly Buch&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7697"&gt;HIGHLIGHTING TEACHER VOICES: DISCUSSIONS ON RACE AND RACISM IN THE ELEMENTARY CLASSROOM&lt;/a&gt;, Carrie Lynn Buckner&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7161"&gt;The Development of Photoinduced Initiation of Olefin Polymerization and its Applications&lt;/a&gt;, Justin M. Burroughs&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7078"&gt;STABILITY AND RESILIENCE IN RAWLS'S POLITICAL LIBERALISM&lt;/a&gt;, Grace Campbell&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7296"&gt;Task-based Runtime Optimizations Towards High Performance Computing Applications&lt;/a&gt;, Qinglei Cao&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7275"&gt;Predictive Capabilities of Laminar-Turbulent Transition Models for Aerodynamics Applications&lt;/a&gt;, Jared Alexander Carnes&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/6917"&gt;Self-Objectification and Alcohol Use in Young Adult College Women&lt;/a&gt;, Rachel Carretta&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7199"&gt;Poa annua: An Annual Species?&lt;/a&gt;, Devon E. Carroll&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7330"&gt;We're all friends here: Examining Transparasocial Interaction on Twitch and its Effects on Strategic Communications&lt;/a&gt;, Alexander Edward Carter&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7293"&gt;Role of temperature, transmission pathways, and pathogen load in Batrachochytrium salamandrivorans epidemiology&lt;/a&gt;, Edward Davis Carter&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7195"&gt;The Upgraded Measurement of the Neutron Lifetime Using the In-Beam Method&lt;/a&gt;, Jimmy P. Caylor&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7090"&gt;Crowd Control: Regulating the Spatial Organization of Biopolymers and Gene Expression by Macromolecular Crowding&lt;/a&gt;, Gaurav Chauhan&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7632"&gt;Healthcare Service Utilization and Life Satisfaction in South Africa&lt;/a&gt;, Tamara Chavez-Lindell&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7238"&gt;Essays in Assessing Healthcare Disparities for Improving Healthcare Equity in Southeastern Region of the U.S. Using GIS and Anti-Covering Location Problem&lt;/a&gt;, Heewon Chea&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7626"&gt;Improving Strength and Stability in Continuum Robots&lt;/a&gt;, Jake A Childs&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7685"&gt;Characterization of microbial metabolism at diverse complexity levels: Extending integrated metaproteomics from simple cell-free systems to complex environmental microbiomes&lt;/a&gt;, Payal Chirania&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7196"&gt;A High Rate Pixelated Neutron Detector for Neutron Reflectometry at the Spallation Neutron Source&lt;/a&gt;, Su-Ann Chong&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7710"&gt;Three Essays in Experimental and Behavioral Economics&lt;/a&gt;, Vasudha Chopra&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7742"&gt;Core-Collapse Supernova Simulations With Spectral Two-Moment Neutrino Transport&lt;/a&gt;, Ran Chu&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7614"&gt;Compositional Effects on the Mechanical Properties and Deformation Mechanisms of Face-Centered Cubic High-Entropy Alloys&lt;/a&gt;, Joshua L. Cicotte&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7587"&gt;Exploring Sleep Quality, Quality of Life, and Seizure Frequency in Patients with Psychogenic Nonepileptic Seizures&lt;/a&gt;, Sandra J. Cobb&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7214"&gt;The Devil Did Not Make Me Do It: Understanding Factors That Influence College Choice of a Faith-Based Institution&lt;/a&gt;, Phillip Lowell Cook Jr.&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7599"&gt;Confinement and Interface Effects in Self Assembly of Functional Block Copolymers&lt;/a&gt;, Jonathan P. Coote&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7107"&gt;“In the Skin I’m in…I Represent a Different Version of What Help Looks Like:” Black Women Sport Psychology Professional’s Experiences in Applied Sport Psychology&lt;/a&gt;, Sharon R. Couch&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7109"&gt;T-PESS and Special Education Teacher Attrition and Retention: A Qualitative Phenomenological Study of Teacher Perceptions of Administrator Effectiveness&lt;/a&gt;, Janna R. Crow&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7191"&gt;Public Health, Community, and the Making of the Modern Morgue in Bavaria, 1855-1914&lt;/a&gt;, Alyssa Nicole Culp&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7071"&gt;USING HEURISTIC METHODS AND MACHINE LEARNING TO ENHANCE THE POSITIONAL ACCURACY OF HISTORICAL GEOSPATIAL DATASETS&lt;/a&gt;, Pankaj Mani Dahal&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7605"&gt;Modeling of chromatin architecture: implications in health and disease&lt;/a&gt;, Priyojit Das&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7643"&gt;Genealogy Tells: Informing Health and Aging Policies Using East Tennessean Older Women's Family Histories, Perceptions, and Experiences of Health Inequity&lt;/a&gt;, Heather Davis&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7634"&gt;Enhancing the Performance of the MtCNN for the Classification of Cancer Pathology Reports: From Data Annotation to Model Deployment&lt;/a&gt;, Kevin De Angeli&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7611"&gt;Aroma Chemistry of Mountain Mints in the Incanum Group of Pycnanthemum Michx.&lt;/a&gt;, Melissa M. Dein&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7148"&gt;Evaluation of Cotton Management Decisions: Cover Crops, Weed Control, and Injured Stands&lt;/a&gt;, Savana D. Denton&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7177"&gt;Paying Attention: The Lived Experiences of Female ADHD Graduate Students in Higher Education&lt;/a&gt;, Tiffany Michelle Devol&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/6919"&gt;Ambivalent Sexism and Condom Use Self-Efficacy Amongst Men Who Bottom: A Serial Mediation Model&lt;/a&gt;, Elliott Nolan DeVore&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7140"&gt;The spatial, temporal, and ecological constraints of plant-host associated microbial communities&lt;/a&gt;, Jonathan Dickey&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7647"&gt;The Literary Fairy: Celtic Folklore’s Influence on Nineteenth-Century Fiction&lt;/a&gt;, Joshua Dobbs&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7136"&gt;Corrosion and Microstructural Characterization of Molybdenum-YSZ Cermets Following Hydrogen Exposure up to 2630 K&lt;/a&gt;, Taylor G. Duffin&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7732"&gt;DETERMINATION OF NEAR-SOL CARBON IMPURITY CONTENT DUE TO DIVERTOR TARGET LEAKAGE USING CARBON-13 TRACERS VIA METHANE INJECTION ON THE DIII-D TOKAMAK&lt;/a&gt;, Jonah David Duran&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7335"&gt;Studying Electron Dynamics for Quantum Materials with Real Space Resolution: A Wannier Orbital Approach to Spectroscopy using High-Performance Supercomputers&lt;/a&gt;, Casey J. Eichstaedt&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7342"&gt;WE HAVE REMAINED PATIENT: FORENSIC HUMAN RIGHTS ANTHROPOLOGY IN POST-SIAD BARRE SOMALILAND&lt;/a&gt;, Lucia My Maja Karolina Elgerud Norstrom&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7113"&gt;Universal Basic Income Favorability: An Examination of Discursive Frames of and Support for UBI Proposals&lt;/a&gt;, John Stacy Elliott&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7184"&gt;Diffusion of Policy Innovations: State Adoption of Value-Added Models in K-12 Education&lt;/a&gt;, Kirsten England&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7728"&gt;Constrained Collective Movement in Human-Robot Teams&lt;/a&gt;, Joshua Fagan&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7618"&gt;Access beyond geographic accessibility: understanding opportunities to human needs in a physical-virtual world&lt;/a&gt;, Jimmy Feng&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7351"&gt;An Autoethnographic Study Uncovering Disruptive Events that Impacted a Gay Woman's Transformation into Adulthood&lt;/a&gt;, Erin J. Ferris&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7315"&gt;LATINIDAD IN SUMMER READING: A COLLABORATIVE APPROACH TO MULTICULTURAL LITERACY FOR LATINO/A ENGLISH LEARNERS’ SELF-EFFICACY IN TRANSITIONING TO MIDDLE SCHOOL&lt;/a&gt;, Elizabeth Fincher&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7590"&gt;Water availability as a cross-scale driver of microbial functions and free viral abundance in soil&lt;/a&gt;, Aubrey K. Fine&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7722"&gt;Elucidating the Importance of Structure, Surfaces, and Interfaces in Polymer Nanoparticles and Nanocomposites&lt;/a&gt;, Jacob E. Fischer&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7653"&gt;Analytical Techniques for the Analysis of Uranium Bearing Materials&lt;/a&gt;, Nathaniel D. Fletcher&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7594"&gt;Characterization and Management of Auxin-Resistant Palmer amaranth in Tennessee&lt;/a&gt;, Delaney C. Foster&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7383"&gt;The Role of Intimate Partnership Among Older Adults on Pain Severity and the Engagement in Preventative Health Behaviors&lt;/a&gt;, Lauren Fox&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7452"&gt;Reducing Homonegative Prejudice towards Gay and Bisexual Men by Targeting Diverse Sexual Orientation Beliefs: A Replication and Extension Study&lt;/a&gt;, Kevin Matthew Fry&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7701"&gt;Election Day Registration and Same Day Registration in State Legislative Districts&lt;/a&gt;, Rachel Fuentes&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7744"&gt;Fabrication, Thermophysical, and Mechanical Properties of Cermet and Cercer Fuel Composites for Nuclear Thermal Propulsion&lt;/a&gt;, Neal D. Gaffin&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7128"&gt;“PUTTING COYOLXAUHQUI TOGETHER”: AN AUTOETHNOGRAPHIC EXPLORATION OF IDENTIFYING AND HEALING FRAGMENTATION THROUGH DECOLONIAL FEMINIST CREATIVE WRITING PRACTICES&lt;/a&gt;, Elizabeth Parker Garcia&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7404"&gt;Demonstrating the use of Multiple Experimental Techniques to Investigate Helium-Hydrogen Synergies in Tungsten&lt;/a&gt;, Wendy A. Garcia&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7173"&gt;The Hiring Practices of an Olympic-Level Sport Organization: A Case Study&lt;/a&gt;, Ashley Gardner&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7440"&gt;BLACK MEN HURDLING HALLOWED HALLS: GENDERED RACISM AND ASSIMILATION IN RELATION TO MENTAL HEALTH&lt;/a&gt;, Edward Marcellus Garnes&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7284"&gt;How Dynamic Bond results in the unique viscoelastic behavior of the associating polymers&lt;/a&gt;, Sirui Ge&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7637"&gt;Constraining the 30P(p,γ)31S reaction using 30P(d,pγ)31P with GODDESS&lt;/a&gt;, Rajesh Ghimire&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7675"&gt;A Study on Early Age Properties of Concrete for Precast and 3D Printing&lt;/a&gt;, Debalina Ghosh&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7211"&gt;Design of Binders for Binder Jet Additive Manufacturing&lt;/a&gt;, Dustin B. Gilmer&lt;/p&gt;, &lt;p class="article-listing"&gt;&lt;a href="https://trace.tennessee.edu/utk_graddiss/7239"&gt;Efficient Network Domination for Life Science Applications&lt;/a&gt;, Stephen K. Grady&lt;/p&gt;]</code></pre>
+</section>
+<section id="full-run" class="level2">
+<h2 class="anchored" data-anchor-id="full-run">Full run</h2>
+<p>Once everything is working for a test site, we can do some bulk scraping.</p>
+<section id="extract-all-urls" class="level3">
+<h3 class="anchored" data-anchor-id="extract-all-urls">Extract all URLs</h3>
+<p>We already know how to get the 100 dissertations links from the main page: <code>mainpage.select(".article-listing a")</code>. Let’s assign it to a variable:</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>dissertlinks <span class="op">=</span> mainpage.select(<span class="st">".article-listing a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>This ResultSet is an <a href="https://docs.python.org/3/glossary.html#term-iterable">iterable</a>, meaning that it can be used in a loop.</p>
+<p>Let’s write a loop to extract all the URLs from this ResultSet of links:</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>urls <span class="op">=</span> []  <span class="co"># We create an empty list before filling it during the loop</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> link <span class="kw">in</span> dissertlinks:</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    urls.append(link.get(<span class="st">"href"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>data</code> is a ResultSet object created by Beautiful Soup. It is an <a href="https://docs.python.org/3/glossary.html#term-iterable">iterable</a>, meaning that it can be used in a loop.</p>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="106">
-<pre><code>bs4.element.ResultSet</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>urls <span class="op">=</span> []</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dissertation <span class="kw">in</span> data:</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    urls.append(dissertation.find(<span class="st">'a'</span>).get(<span class="st">'href'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>urls[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="108">
+<p>Let’s see our first 5 URLs:</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>urls[:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="166">
 <pre><code>['https://trace.tennessee.edu/utk_graddiss/7600',
  'https://trace.tennessee.edu/utk_graddiss/7714',
  'https://trace.tennessee.edu/utk_graddiss/7592',
@@ -516,38 +568,127 @@ Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
  'https://trace.tennessee.edu/utk_graddiss/7086']</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(urls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="109">
-<pre><code>list</code></pre>
-</div>
-</div>
+</section>
+<section id="extract-data-from-each-page" class="level3">
+<h3 class="anchored" data-anchor-id="extract-data-from-each-page">Extract data from each page</h3>
 <p>For each element of <code>urls</code> (i.e.&nbsp;for each dissertation URL), we can now get our information.</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ls <span class="op">=</span> []                                            <span class="co"># Create an empty list</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> url <span class="kw">in</span> urls:                                   <span class="co"># For each element of our list of sites</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> requests.get(url)                                     <span class="co"># Send a request to the site</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    dissertpage <span class="op">=</span> BeautifulSoup(r.text, <span class="st">"html.parser"</span>)        <span class="co"># Parse the result</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> dissertpage.select(<span class="st">"#publication_date p"</span>)[<span class="dv">0</span>].text  <span class="co"># Get the date</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    major <span class="op">=</span> dissertpage.select(<span class="st">"#department p"</span>)[<span class="dv">0</span>].text       <span class="co"># Get the major</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> dissertpage.select(<span class="st">"#advisor1 p"</span>)[<span class="dv">0</span>].text            <span class="co"># Get the PI</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    ls.append((date, major, pi))                              <span class="co"># Store the results in the list</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)                                           <span class="co"># Add a delay at each iteration</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="note">
+<p>Some sites will block requests if they are too frequent. Adding a little delay between requests is often a good idea.</p>
+</div>
 </section>
 </section>
-</section>
-<section id="store-results-in-a-dataframe" class="level2">
-<h2 class="anchored" data-anchor-id="store-results-in-a-dataframe">Store results in a DataFrame</h2>
-<p>Fist, we store the results in a list:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ls <span class="op">=</span> []</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> country <span class="kw">in</span> data:</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> country.find(<span class="st">'h3'</span>, class_<span class="op">=</span><span class="st">"country-name"</span>)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    cap <span class="op">=</span> country.find(<span class="st">'span'</span>, class_<span class="op">=</span><span class="st">"country-capital"</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    pop <span class="op">=</span> country.find(<span class="st">'span'</span>, class_<span class="op">=</span><span class="st">"country-population"</span>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    area <span class="op">=</span> country.find(<span class="st">'span'</span>, class_<span class="op">=</span><span class="st">"country-area"</span>)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    ls.append((name.text.strip(), cap.text.strip(), pop.text.strip(), area.text.strip()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then, we create a list with the column names for our DataFrame:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"Name"</span>, <span class="st">"Capital"</span>, <span class="st">"Population"</span>, <span class="st">"Area"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Finally, we can create our DataFrame:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(ls, columns<span class="op">=</span>cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="functions-recap" class="level2">
-<h2 class="anchored" data-anchor-id="functions-recap">Functions recap</h2>
+<section id="store-results-in-dataframe" class="level2">
+<h2 class="anchored" data-anchor-id="store-results-in-dataframe">Store results in DataFrame</h2>
+<p>A DataFrame would be a lot more convenient than a list to hold our results.</p>
+<p>First, we create a list with the column names for our future DataFrame:</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"Date"</span>, <span class="st">"Major"</span>, <span class="st">"PI"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we create our DataFrame:</p>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(ls, columns<span class="op">=</span>cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="170">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Major</th>
+<th data-quarto-table-cell-role="th">PI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>5-2023</td>
+<td>Chemistry</td>
+<td>Craig E. Barnes</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>12-2022</td>
+<td>Chemistry</td>
+<td>Dr. Ampofo K. Darko</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>12-2022</td>
+<td>Industrial Engineering</td>
+<td>James Ostrowski</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>5-2022</td>
+<td>Entomology, Plant Pathology and Nematology</td>
+<td>Heather Kelly</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5-2022</td>
+<td>Mechanical Engineering</td>
+<td>Caleb D. Rucker</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">95</td>
+<td>8-2022</td>
+<td>Psychology</td>
+<td>Jacob L. Levy</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">96</td>
+<td>8-2022</td>
+<td>Materials Science and Engineering</td>
+<td>Alexei P. Sokolov</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">97</td>
+<td>12-2022</td>
+<td>Physics</td>
+<td>Kate Jones</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">98</td>
+<td>12-2022</td>
+<td>Civil Engineering</td>
+<td>John Z. Ma</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">99</td>
+<td>5-2022</td>
+<td>Energy Science and Engineering</td>
+<td>Tomonori Saito</td>
+</tr>
+</tbody>
+</table>
+
+<p>100 rows × 3 columns</p>
+</div>
+</div>
+</div>
 
 
 </section>
