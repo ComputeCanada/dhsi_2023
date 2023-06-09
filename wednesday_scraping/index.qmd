@@ -64,7 +64,7 @@ Web scraping is a general term for a set of tools which allow for the extraction
 
 While most of the data on the internet is publicly available, it is illegal to scrape some sites and you should always look into the policy of a site before attempting to scrape it. Some sites will also block you if you submit too many requests in a short amount of time, so remember to scrape responsibly.
 
-## Goal of this workshop
+## Example for this workshop
 
 We will use [a website](https://trace.tennessee.edu/utk_graddiss/index.html) from the [University of Tennessee](https://www.utk.edu/) containing a database of PhD theses from that university.
 
@@ -277,7 +277,7 @@ Then we can parse it with Beautiful Soup (as we did before). Let's create a `dis
 dissertpage_test = BeautifulSoup(r_test.content, "html.parser")
 ```
 
-### Get data for our test URL
+### Get data for test URL
 
 It is time to extract the publication date, major, and advisor for our test URL.
 
@@ -391,7 +391,7 @@ df = pd.DataFrame(ls, columns=cols)
 df
 ```
 
-## Save the results to file
+## Save results to file
 
 As a final step, we will save our data to a CSV file:
 

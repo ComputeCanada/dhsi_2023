@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#html-and-css" id="toc-html-and-css" class="nav-link active" data-scroll-target="#html-and-css">HTML and CSS</a></li>
   <li><a href="#web-scrapping" id="toc-web-scrapping" class="nav-link" data-scroll-target="#web-scrapping">Web scrapping</a></li>
-  <li><a href="#goal-of-this-workshop" id="toc-goal-of-this-workshop" class="nav-link" data-scroll-target="#goal-of-this-workshop">Goal of this workshop</a></li>
+  <li><a href="#example-for-this-workshop" id="toc-example-for-this-workshop" class="nav-link" data-scroll-target="#example-for-this-workshop">Example for this workshop</a></li>
   <li><a href="#lets-look-at-the-sites" id="toc-lets-look-at-the-sites" class="nav-link" data-scroll-target="#lets-look-at-the-sites">Let’s look at the sites</a></li>
   <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
   <li><a href="#send-request-to-the-main-site" id="toc-send-request-to-the-main-site" class="nav-link" data-scroll-target="#send-request-to-the-main-site">Send request to the main site</a></li>
@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#identify-relevant-markers" id="toc-identify-relevant-markers" class="nav-link" data-scroll-target="#identify-relevant-markers">Identify relevant markers</a></li>
   <li><a href="#extract-test-url" id="toc-extract-test-url" class="nav-link" data-scroll-target="#extract-test-url">Extract test URL</a></li>
   <li><a href="#send-request-to-test-url" id="toc-send-request-to-test-url" class="nav-link" data-scroll-target="#send-request-to-test-url">Send request to test URL</a></li>
-  <li><a href="#get-data-for-our-test-url" id="toc-get-data-for-our-test-url" class="nav-link" data-scroll-target="#get-data-for-our-test-url">Get data for our test URL</a></li>
+  <li><a href="#get-data-for-test-url" id="toc-get-data-for-test-url" class="nav-link" data-scroll-target="#get-data-for-test-url">Get data for test URL</a></li>
   </ul></li>
   <li><a href="#full-run" id="toc-full-run" class="nav-link" data-scroll-target="#full-run">Full run</a>
   <ul>
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#extract-data-from-each-page" id="toc-extract-data-from-each-page" class="nav-link" data-scroll-target="#extract-data-from-each-page">Extract data from each page</a></li>
   </ul></li>
   <li><a href="#store-results-in-dataframe" id="toc-store-results-in-dataframe" class="nav-link" data-scroll-target="#store-results-in-dataframe">Store results in DataFrame</a></li>
-  <li><a href="#save-the-results-to-file" id="toc-save-the-results-to-file" class="nav-link" data-scroll-target="#save-the-results-to-file">Save the results to file</a></li>
+  <li><a href="#save-results-to-file" id="toc-save-results-to-file" class="nav-link" data-scroll-target="#save-results-to-file">Save results to file</a></li>
   </ul>
 </nav>
     </div>
@@ -249,8 +249,8 @@ Marie-Hélène Burle (Simon Fraser University)</p>
 <p>Web scraping is a general term for a set of tools which allow for the extraction of data from the web automatically.</p>
 <p>While most of the data on the internet is publicly available, it is illegal to scrape some sites and you should always look into the policy of a site before attempting to scrape it. Some sites will also block you if you submit too many requests in a short amount of time, so remember to scrape responsibly.</p>
 </section>
-<section id="goal-of-this-workshop" class="level2">
-<h2 class="anchored" data-anchor-id="goal-of-this-workshop">Goal of this workshop</h2>
+<section id="example-for-this-workshop" class="level2">
+<h2 class="anchored" data-anchor-id="example-for-this-workshop">Example for this workshop</h2>
 <p>We will use <a href="https://trace.tennessee.edu/utk_graddiss/index.html">a website</a> from the <a href="https://www.utk.edu/">University of Tennessee</a> containing a database of PhD theses from that university.</p>
 <p>Our goal is to scrape data from this site to produce a dataframe with the date, major, and advisor for each dissertation.</p>
 <div class="note">
@@ -504,8 +504,8 @@ Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dissertpage_test <span class="op">=</span> BeautifulSoup(r_test.content, <span class="st">"html.parser"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="get-data-for-our-test-url" class="level3">
-<h3 class="anchored" data-anchor-id="get-data-for-our-test-url">Get data for our test URL</h3>
+<section id="get-data-for-test-url" class="level3">
+<h3 class="anchored" data-anchor-id="get-data-for-test-url">Get data for test URL</h3>
 <p>It is time to extract the publication date, major, and advisor for our test URL.</p>
 <p>Let’s start with the date. Thanks to the <a href="https://selectorgadget.com/">SelectorGadget</a>, following <a href="#identify-the-relevant-html-markers">the method we saw earlier</a>, we can see that we now need elements marked by <code>#publication_date p</code>.</p>
 <p>We can use <code>select</code> as we did earlier:</p>
@@ -691,8 +691,8 @@ Doctoral Dissertations | Graduate School | University of Tennessee, Knoxville
 </div>
 </div>
 </section>
-<section id="save-the-results-to-file" class="level2">
-<h2 class="anchored" data-anchor-id="save-the-results-to-file">Save the results to file</h2>
+<section id="save-results-to-file" class="level2">
+<h2 class="anchored" data-anchor-id="save-results-to-file">Save results to file</h2>
 <p>As a final step, we will save our data to a CSV file:</p>
 <div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">'dissertations_data.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
